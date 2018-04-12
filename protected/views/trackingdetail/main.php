@@ -1,6 +1,3 @@
-<?php
-$branchs = MBranch::model ()->findAll (); // รหัสประเภทการใช้งาน
-?>
 <form id="Form1" method="POST" enctype="multipart/form-data"
 	class="form-horizontal">
 
@@ -13,7 +10,7 @@ $branchs = MBranch::model ()->findAll (); // รหัสประเภทก�
 						<?php echo  MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>
 					</div>
 					<div class="actions">
-					<?php echo (UserLoginUtils::canCreate($_SERVER['REQUEST_URI']) == false)? "":  CHtml::link('เพิ่มข้อมูล',array('MReportDepartment/Create'),array('class'=>'btn btn-default btn-sm'));?>
+					<?php echo (UserLoginUtils::canCreate($_SERVER['REQUEST_URI']) == false)? "":  CHtml::link('เพิ่มข้อมูล',array('Tracking/Create'),array('class'=>'btn btn-default btn-sm'));?>
 					</div>
 				</div>
 				<div class="portlet-body">
@@ -22,44 +19,30 @@ $branchs = MBranch::model ()->findAll (); // รหัสประเภทก�
 						<thead>
 							<tr>
 								<th>ลำดับ</th>
-								<th>ชื่อ</th>
-								<th>ใช้สำหรับสาขา</th>
-								<th class="no-sort"></th>
+								<th>รหัส</th>
+								<th>สถานะ</th>
+								<th>วันที่ทำรายการ</th>
+								
 							</tr>
 						</thead>
 						<tbody>
-	<?php
-	$counter = 1;
-	$dataProvider = $data->search ();
-	
-	foreach ( $dataProvider->data as $data ) {
-		?>
-
-<tr>
-<td class="center"><?php echo $counter;?></td>
-								<td class="center"><?php echo $data->name?></td>
-								<td class="center"><?php echo CommonUtil::getBranchName($data->branch_group_id, $branchs) ?></td>
-								<td class="center">
-								
-			
-									
-																					<?php if(UserLoginUtils::canUpdate( $_SERVER['REQUEST_URI'])){?>
-<a title="Edit" class="fa fa-edit"
-									href="<?php echo Yii::app()->CreateUrl('MReportDepartment/Update/id/'.$data->id)?>"></a>
-<?php }?>
-<?php if(UserLoginUtils::canDelete( $_SERVER['REQUEST_URI']) && $data->id <> 999){?>
-<a title="Delete" onclick="return confirm('ต้องการลบข้อมูลใช่หรือไม่?')"
-									class="fa fa-trash"
-									href="<?php echo Yii::app()->CreateUrl('MReportDepartment/Delete/id/'.$data->id)?>"></a>
-<?php }?>	
-									
-									
-								</td>
-							</tr>
-			<?php
-			$counter++;
-	}
-	?>	
+            	<?php
+            	$counter = 1;
+            	$dataProvider = $data->search ();
+            	
+            	foreach ( $dataProvider->data as $data ) 
+            	{
+            	?>
+                        <tr>
+                            <td class="center"><?php echo $counter;?></td>
+    						<td class="center"><?php echo $data->tracking->code;?></td>
+    						<td class="center"><?php echo $data->trackingStatus->name;?></td>
+    						<td class="center"><?php echo CommonUtil::getDateThaiAndTime($data->tracking->create_date);?></td>
+						</tr>
+				<?php 
+				    $counter++;
+            	}
+				?>	
 
 						</tbody>
 					</table>
@@ -108,6 +91,16 @@ jQuery(document).ready(function () {
 	        [5, 10, 15, 20, -1],
 	        [5, 10, 15, 20, "ทั้งหมด"] // change per page values here
 	    ],
+// 	    "columns": [
+// 	        { "width": "2%" },
+// 	        { "width": "5%" },
+// 	        { "width": "50%" },
+// 	        { "width": "5%" },
+// 	        { "width": "20%" },
+// 	        { "width": "3%" },
+// 	        { "width": "5%" },
+// 	        { "width": "10%" },
+// 	      ],
 	    // set the initial value
 	    "pageLength": 10 ,
 	    "columnDefs": [ {

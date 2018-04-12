@@ -1,6 +1,6 @@
 <?php
 
-class MPositionController extends CController
+class TrackingStatusController extends CController
 {
 
     public $layout = '_main';
@@ -16,8 +16,8 @@ class MPositionController extends CController
         if (! UserLoginUtils::authorizePage($_SERVER['REQUEST_URI'])) {
             $this->redirect(Yii::app()->createUrl('DashBoard/Permission'));
         }
-        $model = new MPosition();
-        $this->render('//mposition/main', array(
+        $model = new TrackingStatus();
+        $this->render('//mtrackingstatus/main', array(
             'data' => $model
         ));
     }
@@ -32,28 +32,22 @@ class MPositionController extends CController
             $this->redirect(Yii::app()->createUrl('DashBoard/Permission'));
         }
         
-        if (isset($_POST['MPosition'])) {
-            
-            // all inputs are valid
+        if (isset($_POST['TrackingStatus'])) {
             
             $transaction = Yii::app()->db->beginTransaction();
             // Add Request
-            $model = new MPosition();
-            $model->attributes = $_POST['MPosition'];
-            if ($model->validate()) {
-                $model->save();
-                // echo "SAVE";
-                $transaction->commit();
-                
-                // $transaction->rollback ();
-                $this->redirect(Yii::app()->createUrl('MPosition'));
-            } else {
-                // validation failed: $errors is an array containing error messages
-                $errors = $model->errors;
-            }
+            $model = new TrackingStatus();
+            $model->attributes = $_POST['TrackingStatus'];
+            
+            $model->save();
+            // echo "SAVE";
+            $transaction->commit();
+            
+            // $transaction->rollback ();
+            $this->redirect(Yii::app()->createUrl('TrackingStatus'));
         } else {
             // Render
-            $this->render('//mposition/create');
+            $this->render('//mtrackingstatus/create');
         }
     }
 
@@ -69,7 +63,7 @@ class MPositionController extends CController
         $model = $this->loadModel();
         $model->delete();
         
-        $this->redirect(Yii::app()->createUrl('MPosition/'));
+        $this->redirect(Yii::app()->createUrl('TrackingStatus/'));
     }
 
     public function actionUpdate()
@@ -82,16 +76,16 @@ class MPositionController extends CController
             $this->redirect(Yii::app()->createUrl('DashBoard/Permission'));
         }
         $model = $this->loadModel();
-        if (isset($_POST['MPosition'])) {
+        if (isset($_POST['TrackingStatus'])) {
             $transaction = Yii::app()->db->beginTransaction();
-            $model->attributes = $_POST['MPosition'];
+            $model->attributes = $_POST['TrackingStatus'];
             
             $model->update();
             $transaction->commit();
             
-            $this->redirect(Yii::app()->createUrl('MPosition'));
+            $this->redirect(Yii::app()->createUrl('TrackingStatus'));
         }
-        $this->render('//mposition/update', array(
+        $this->render('//mtrackingstatus/update', array(
             'data' => $model
         ));
     }
@@ -101,7 +95,7 @@ class MPositionController extends CController
         if ($this->_model === null) {
             if (isset($_GET['id'])) {
                 $id = addslashes($_GET['id']);
-                $this->_model = MPosition::model()->findbyPk($id);
+                $this->_model = TrackingStatus::model()->findbyPk($id);
             }
             if ($this->_model === null)
                 throw new CHttpException(404, 'The requested page does not exist.');

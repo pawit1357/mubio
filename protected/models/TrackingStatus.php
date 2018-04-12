@@ -1,10 +1,10 @@
 <?php
-class MBranch extends CActiveRecord {
+class TrackingStatus extends CActiveRecord {
 	public static function model($className = __CLASS__) {
 		return parent::model ( $className );
 	}
 	public function tableName() {
-		return 'tb_m_branch';
+		return 'tb_tracking_status';
 	}
 	public function relations() {
 		return array ();
@@ -12,7 +12,7 @@ class MBranch extends CActiveRecord {
 	public function rules() {
 		return array (
 				array (
-						'id,name',
+						'ID,name',
 						'safe' 
 				) 
 		);
@@ -46,14 +46,10 @@ class MBranch extends CActiveRecord {
 	public static function getMax()
 	{
 	    $criteria = new CDbCriteria();
-	    $criteria->condition = " id <> 999";
 	    $criteria->order = 'id DESC';
 	    $row = self::model()->find($criteria);
 	    if (isset($row)) {
 	        $max = $row->id;
-	        if ($max == 999) {
-	            $max = 1000;
-	        }
 	        return $max + 1;
 	    } else {
 	        return 1;

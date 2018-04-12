@@ -1,6 +1,3 @@
-<?php
-$branchs = MBranch::model ()->findAll (); // รหัสประเภทการใช้งาน
-?>
 <form id="Form1" method="post" enctype="multipart/form-data"
 	class="form-horizontal">
 	<!-- 	<div class="alert alert-danger display-hide"> -->
@@ -19,57 +16,37 @@ $branchs = MBranch::model ()->findAll (); // รหัสประเภทก�
 
 			</div>
 			<div class="actions">
-			<?php echo CHtml::link('ย้อนกลับ',array('MReportDepartment/'),array('class'=>'btn btn-default btn-sm'));?>
+			<?php echo CHtml::link('ย้อนกลับ',array('TrackingStatus/'),array('class'=>'btn btn-default btn-sm'));?>
 			</div>
 		</div>
 		<div class="portlet-body form">
 			<div class="form-body">
 				<!-- BEGIN FORM-->
 				<div class="row">
-					<div class="col-md-10">
+					<div class="col-md-6">
 						<div class="form-group">
-							<label class="control-label col-md-4">รหัส:<span class="required">*</span></label>
+							<label class="control-label col-md-3">รหัส:<span class="required">*</span></label>
 							<div class="col-md-6">
 								<input id="id" type="text"
-									value="<?php echo MReportDepartment::getMax();?>"
-									class="grpOfInt form-control" name="MReportDepartment[id]" readonly>
+									value="<?php echo MTitle::getMax();?>"
+									class="grpOfInt form-control" name="TrackingStatus[id]" readonly>
 							</div>
 							<div id="divReq-id"></div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-10">
+					<div class="col-md-6">
 						<div class="form-group">
-							<label class="control-label col-md-4">ชื่อ:<span class="required">*</span></label>
+							<label class="control-label col-md-3">ชื่อ:<span class="required">*</span></label>
 							<div class="col-md-6">
 								<input id="name" type="text" value=""
-									class="form-control" name="MReportDepartment[name]">
+									class="form-control" name="TrackingStatus[name]">
 							</div>
 							<div id="divReq-name"></div>
 						</div>
 					</div>
 				</div>
-				<div class="row" id="divIsSealSource">
-					<div class="col-md-10">
-						<div class="form-group">
-							<label class="control-label col-md-4"> ใช้สำหรับสาขา:<span
-								class="required"> * </span>
-							</label>
-							<div class="radio-list">
-							<label class="radio-inline">
-								<?php foreach($branchs as $item) {?>
-									 <input type="checkbox" id="status"
-									name="branch_group_id[]" value="<?php echo $item->id?>" /> <?php echo $item->name?>
-								
-								<?php }?>
-									</label> 
-
-							</div>
-						</div>
-					</div>
-				</div>
-
 
 				<!-- END FORM-->
 
@@ -80,7 +57,7 @@ $branchs = MBranch::model ()->findAll (); // รหัสประเภทก�
 						<div class="row">
 							<div class="col-md-offset-3 col-md-9">
 								<button type="submit" class="btn green uppercase"><?php echo ConfigUtil::getBtnSaveButton();?></button>
-								<?php echo CHtml::link(ConfigUtil::getBtnCancelButton(),array('MReportDepartment/'),array('class'=>'btn btn-default uppercase'));?>
+								<?php echo CHtml::link(ConfigUtil::getBtnCancelButton(),array('TrackingStatus/'),array('class'=>'btn btn-default uppercase'));?>
 							</div>
 						</div>
 					</div>

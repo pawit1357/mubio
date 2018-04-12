@@ -1,4 +1,4 @@
-﻿<form id="Form1" method="POST" enctype="multipart/form-data"
+<form id="Form1" method="POST" enctype="multipart/form-data"
 	class="form-horizontal">
 
 	<div class="row">
@@ -10,7 +10,7 @@
 						<?php echo  MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>
 					</div>
 					<div class="actions">
-					<?php echo (UserLoginUtils::canCreate($_SERVER['REQUEST_URI']) == false)? "":  CHtml::link('เพิ่มข้อมูล',array('MDepartment/Create'),array('class'=>'btn btn-default btn-sm'));?>
+					<?php echo (UserLoginUtils::canCreate($_SERVER['REQUEST_URI']) == false)? "":  CHtml::link('เพิ่มข้อมูล',array('MTitle/Create'),array('class'=>'btn btn-default btn-sm'));?>
 					</div>
 				</div>
 				<div class="portlet-body">
@@ -19,8 +19,7 @@
 						<thead>
 							<tr>
 								<th>ลำดับ</th>
-								<th>คณะ /ส่วนงาน</th>
-								
+								<th>ชื่อ</th>
 								<th class="no-sort"></th>
 							</tr>
 						</thead>
@@ -30,29 +29,29 @@
 	$dataProvider = $data->search ();
 	
 	foreach ( $dataProvider->data as $data ) {
-		if ($data->id != - 1) {
-			?>
+		?>
 <tr>
-								<td class="center"><?php echo $counter;?></td>
+<td class="center"><?php echo $counter;?></td>
 								<td class="center"><?php echo $data->name?></td>
-								
-								
 								<td class="center">
-<?php if(UserLoginUtils::canUpdate( $_SERVER['REQUEST_URI'])  ){?>
+								
+			
+									
+																					<?php if(UserLoginUtils::canUpdate( $_SERVER['REQUEST_URI'])){?>
 <a title="Edit" class="fa fa-edit"
-									href="<?php echo Yii::app()->CreateUrl('MDepartment/Update/id/'.$data->id)?>"></a>
+									href="<?php echo Yii::app()->CreateUrl('TrackingStatus/Update/id/'.$data->id)?>"></a>
 <?php }?>
-<?php if(UserLoginUtils::canDelete( $_SERVER['REQUEST_URI']) ){?>
+<?php if(UserLoginUtils::canDelete( $_SERVER['REQUEST_URI'])){?>
 <a title="Delete" onclick="return confirm('ต้องการลบข้อมูลใช่หรือไม่?')"
 									class="fa fa-trash"
-									href="<?php echo Yii::app()->CreateUrl('MDepartment/Delete/id/'.$data->id)?>"></a>
-<?php }?>
+									href="<?php echo Yii::app()->CreateUrl('TrackingStatus/Delete/id/'.$data->id)?>"></a>
+<?php }?>	
+									
+									
 								</td>
 							</tr>
 			<?php
 			$counter++;
-		}
-		
 	}
 	?>	
 

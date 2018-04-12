@@ -1,6 +1,7 @@
 <form id="Form1" method="POST" enctype="multipart/form-data"
 	class="form-horizontal">
 
+
 	<div class="row">
 		<div class="col-md-12">
 			<!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -10,7 +11,12 @@
 						<?php echo  MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>
 					</div>
 					<div class="actions">
-					<?php echo (UserLoginUtils::canCreate($_SERVER['REQUEST_URI']) == false)? "":  CHtml::link('เพิ่มข้อมูล',array('MRoom/Create'),array('class'=>'btn btn-default btn-sm'));?>
+						<?php echo (UserLoginUtils::canCreate($_SERVER['REQUEST_URI']) == false)? "":  CHtml::link(ConfigUtil::getBtnAddName().'(รายบุคคล)',array('Form4/Create'),array('class'=>'btn btn-default btn-sm'));?>
+						<?php echo (UserLoginUtils::canCreate($_SERVER['REQUEST_URI']) == false)? "":  CHtml::link("แนบไฟล์",array('Form4/AttachFile'),array('class'=>'btn btn-default btn-sm'));?>
+						<?php echo (UserLoginUtils::canCreate($_SERVER['REQUEST_URI']) == false)? "":  CHtml::link("อัพโหลดจากไฟล์",array('Form4/ImportFile'),array('class'=>'btn btn-default btn-sm'));?>
+						
+<!-- 						<a class="btn btn-default btn-sm" data-toggle="modal" -->
+						<!-- 							href="#modalReport"> รายงาน </a> -->
 					</div>
 				</div>
 				<div class="portlet-body">
@@ -19,61 +25,43 @@
 						<thead>
 							<tr>
 								<th>ลำดับ</th>
-								<th>ชื่อห้อง</th>
-								<th>เลขห้อง</th>
-								<th>คณะ</th>
-								<th>อาคาร</th>
-								<th>ชั้น</th>
-								<th>ไฟล์แผนผังห้อง</th>
-								<th class="no-sort"></th>
+								<th>ตำแหน่ง</th>
+								<th>ชื่อ</th>
+								<th>นามสกุล</th>
+								<th>ความเชี่ยวชาญ
+								
+								<th>
+								
+								<th class="no-sort">ดำเนินการ</th>
 							</tr>
 						</thead>
 						<tbody>
-	<?php
-	$counter = 1;
-	$dataProvider = $data->search ();
-	
-	foreach ( $dataProvider->data as $data ) {
-		?>
-<tr>
-<td class="center"><?php echo $counter;?></td>
-								<td class="center"><?php echo $data->name?></td>
-								<td class="center"><?php echo $data->number?></td>
-<td class="center"><?php echo $data->fac?></td>
-								<td class="center"><?php echo $data->building_id?></td>
-								<td class="center"><?php echo $data->floor;// (($data->floor < 1 )? 'ใต้ดินชั้น ' : '') .''. abs($data->floor)?></td>
-								<td class="center">
-									<?php if(isset($data->room_plan)){?>
-									<a title="Download" class="fa fa-download"
-									href="<?php echo  ConfigUtil::getAppName().''. $data->room_plan?>">&nbsp;ดาวโหลด</a>	<?php }?></td>
+<?php
+$counter = 1;
+$dataProvider = $data->search();
 
-
-
-								<td class="center">
-		
-									
-<?php if(UserLoginUtils::canUpdate( $_SERVER['REQUEST_URI'])){?>
-<a title="Edit" class="fa fa-edit"
-									href="<?php echo Yii::app()->CreateUrl('MRoom/Update/id/'.$data->id)?>"></a>
-<?php }?>
-<?php if(UserLoginUtils::canDelete( $_SERVER['REQUEST_URI'])){?>
-<a title="Delete" onclick="return confirm('ต้องการลบข้อมูลใช่หรือไม่?')"
-									class="fa fa-trash"
-									href="<?php echo Yii::app()->CreateUrl('MRoom/Delete/id/'.$data->id)?>"></a>
-<?php }?>	
-									
-									
-								</td>
+foreach ($dataProvider->data as $data) {
+?>
+							<tr>
+								<td class="center"><?php echo  $counter;?></td>
+								<td class="center"><?php echo $data->position->name?></td>
+								<td class="center"><?php echo $data->person->firstname?></td>
+								<td class="center"><?php echo $data->person->surname?></td>
+								<td class="center"><?php echo $data->description?></td>
 							</tr>
-			<?php
-			$counter++;
-	}
-	?>	
+<?php
+    $counter ++;
+}
+?>						
 
 						</tbody>
 					</table>
 
+
 				</div>
+
+
+
 			</div>
 		</div>
 	</div>
@@ -124,7 +112,10 @@ jQuery(document).ready(function () {
 	        "orderable": false,
 	  } ]
 		});
+	
+
 });
 
 </script>
+
 </form>

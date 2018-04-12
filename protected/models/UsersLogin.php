@@ -9,21 +9,8 @@ class UsersLogin extends CActiveRecord {
 	public function relations() {
 		return array (
 				'users_role' => array(self::BELONGS_TO, 'UsersRole', 'role_id'),
-				'title' => array (
-						self::BELONGS_TO,
-						'MTitle',
-						'title_id' 
-				),
-				'department' => array (
-						self::BELONGS_TO,
-						'MDepartment',
-						'department_id' 
-				),
-				'branch_group' => array (
-						self::BELONGS_TO,
-						'MBranch',
-						'branch_group_id' 
-				) 
+				'title' => array (self::BELONGS_TO,'MTitle','title_id' ),
+				'department' => array (self::BELONGS_TO,'MDepartment','department_id')
 		);
 	}
 	public function rules() {
@@ -41,7 +28,7 @@ class UsersLogin extends CActiveRecord {
 						is_force_change_password,
 						title_id,
 						first_name,last_name,
-						mobile_phone,department_id,update_by,update_date,branch_group_id',
+						mobile_phone,department_id,update_by,update_date',
 						'safe' 
 				) 
 		);

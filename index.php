@@ -13,12 +13,12 @@ require_once dirname(__FILE__).'/protected/utilities/ConfigUtil.php';
 require_once dirname(__FILE__).'/protected/utilities/MenuUtil.php';
 require_once dirname(__FILE__).'/protected/utilities/GridUtil.php';
 require_once dirname(__FILE__).'/protected/utilities/CommonUtil.php';
+require_once dirname(__FILE__).'/protected/utilities/RCodeGenerator.php';
 require_once dirname(__FILE__).'/protected/utilities/MailUtil.php';
 require_once dirname(__FILE__).'/protected/utilities/PHPExcel/Classes/PHPExcel/IOFactory.php';
+
 require_once dirname(__FILE__).'/protected/utilities/fpdi/fpdf.php';
 require_once dirname(__FILE__).'/protected/utilities/fpdi/fpdfhtml.php';
-
-
 require_once dirname(__FILE__).'/protected/utilities/fpdi/fpdi.php';
 require_once dirname(__FILE__).'/protected/utilities/fpdi/fpdf_tpl.php';
 require_once dirname(__FILE__).'/protected/utilities/fpdi/fpdi_bridge.php';
@@ -37,5 +37,5 @@ require_once dirname(__FILE__).'/protected/utilities/tcpdf/tcpdf.php';
 
 // create a Web application instance and run
 $app = Yii::createWebApplication($config);
-Yii::app()->setTimeZone('UTC');
+Yii::app()->setTimeZone('Asia/Bangkok');
 $app->run();

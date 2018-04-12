@@ -19,11 +19,11 @@ class UsersRole extends CActiveRecord {
 		return array (
 				array (
 						'ROLE_ID,
-						ROLE_NAME,variable_name,
+						ROLE_NAME,
 						ROLE_DESC,
 						UPDATE_BY,
 						CREATE_DATE,
-						UPDATE_DATE,branch_group_id',
+						UPDATE_DATE',
 						'safe' 
 				) 
 		);

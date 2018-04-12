@@ -1,5 +1,4 @@
 ﻿<?php
-$branchs = MBranch::model ()->findAll (); // รหัสประเภทการใช้งาน
 
 ?>
 <form id="Form1" method="post" enctype="multipart/form-data"
@@ -45,28 +44,6 @@ $branchs = MBranch::model ()->findAll (); // รหัสประเภทก�
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-9">
-						<div class="form-group">
-							<label class="control-label col-md-3">ตัวแปร(สำหรับโปรแกรม): 
-							</label>
-							<div class="col-md-6">
-
-								<select class="form-control select2"
-									name="UsersRole[variable_name]" id="variable_name">
-									<option value="ADMIN">ADMIN</option>
-									<option value="USER">USER</option>
-									<option value="STAFF">STAFF</option>
-									<option value="EXECUTIVE">EXECUTIVE</option>
-								</select>
-
-							</div>
-							<div id="divReq-variable_name"></div>
-						</div>
-					</div>
-
-				</div>
-
 				<h4>กำหนดการเข้าถึงเมนู</h4>
 				<table class="table table-striped table-hover table-bordered">
 					<thead>

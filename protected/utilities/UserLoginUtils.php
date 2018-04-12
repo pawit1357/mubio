@@ -2,14 +2,14 @@
 // session_start ();
 class UserLoginUtils {
     
-	const ADMIN = "ADMIN";
-	const USER = "USER";
-	const STAFF = "STAFF";
-	const EXECUTIVE = "EXECUTIVE";
-	const INIT_APPROVE = "";
-	const USER_APPROVE = "USER_APPROVE";
-	const STAFF_APPROVE = "STAFF_APPROVE";
-	const EXECUTIVE_APPROVE = "EXECUTIVE_APPROVE";
+	const ADMIN = "1";
+// 	const USER = "USER";
+	const STAFF = "2";
+// 	const EXECUTIVE = "EXECUTIVE";
+// 	const INIT_APPROVE = "";
+// 	const USER_APPROVE = "USER_APPROVE";
+// 	const STAFF_APPROVE = "STAFF_APPROVE";
+// 	const EXECUTIVE_APPROVE = "EXECUTIVE_APPROVE";
 	
 	public static function isLogin() {
 		return isset ( $_SESSION ['USER_LOGIN_ID'] );
@@ -24,8 +24,8 @@ class UserLoginUtils {
 		unset ( $_SESSION ['FAIL_MESSAGE'] );
 		unset ( $_SESSION ['MENU_IN_ROLE'] );
 		unset ( $_SESSION ['DEPARTMENT_ID'] );
-		unset ( $_SESSION ['BRANCH_ID'] );
-		unset ( $_SESSION ['FACULTY_ID'] );
+// 		unset ( $_SESSION ['BRANCH_ID'] );
+// 		unset ( $_SESSION ['FACULTY_ID'] );
 	}
 	public static function authen($username, $password) {
 		$criteria = new CDbCriteria ();
@@ -36,11 +36,10 @@ class UserLoginUtils {
 			
 			$_SESSION ['USER_LOGIN_ID'] = $UsersLogin [0]->id;
 			$_SESSION ['USER_ROLE_ID'] = $UsersLogin [0]->role_id;
-			$_SESSION ['USER_ROLE_NAME'] = $UsersLogin [0]->users_role->variable_name;
 			$_SESSION ['IS_FORCE_CHANGE_PASSWORD'] = ($UsersLogin [0]->is_force_change_password == "1" ? true : false);
 			$_SESSION ['DEPARTMENT_ID'] = $UsersLogin [0]->department->id;
-			$_SESSION ['BRANCH_ID'] = CommonUtil::IsNullOrEmptyString ( $UsersLogin [0]->branch_group_id ) ? "1" : $UsersLogin [0]->branch_group_id;
-			$_SESSION ['FACULTY_ID'] = $UsersLogin [0]->department->faculty_id;
+// 			$_SESSION ['BRANCH_ID'] = CommonUtil::IsNullOrEmptyString ( $UsersLogin [0]->branch_group_id ) ? "1" : $UsersLogin [0]->branch_group_id;
+// 			$_SESSION ['FACULTY_ID'] = $UsersLogin [0]->department->faculty_id;
 			
 			// Get Menu By Role
 			$cri = new CDbCriteria ();
@@ -117,25 +116,24 @@ class UserLoginUtils {
 			return null;
 		}
 	}
-	public static function getBranchId() {
-		if (isset ( $_SESSION ['BRANCH_ID'] )) {
-			return $_SESSION ['BRANCH_ID'];
-		} else {
-			return null;
-		}
-	}
-	public static function getFacultyId() {
-		if (isset ( $_SESSION ['FACULTY_ID'] )) {
-			return $_SESSION ['FACULTY_ID'];
-		} else {
-			return null;
-		}
-	}
+// 	public static function getBranchId() {
+// 		if (isset ( $_SESSION ['BRANCH_ID'] )) {
+// 			return $_SESSION ['BRANCH_ID'];
+// 		} else {
+// 			return null;
+// 		}
+// 	}
+// 	public static function getFacultyId() {
+// 		if (isset ( $_SESSION ['FACULTY_ID'] )) {
+// 			return $_SESSION ['FACULTY_ID'];
+// 		} else {
+// 			return null;
+// 		}
+// 	}
 	public static function getLoginInfo() {
 		if (self::isLogin ()) {
 			$UsersLogin = UsersLogin::model ()->findByPk ( self::getUsersLoginId () );
-// 			$branchs = MBranch::model ()->findAll ();
-			return "<i class=\"fa fa-user\"></i>" . $UsersLogin->first_name . "  ". $UsersLogin->last_name . " <i class=\"fa fa-key\"></i>(" .  strtolower ( $UsersLogin->users_role->variable_name ). ") <i class=\"fa fa-university\"></i> สาขา " .$UsersLogin->department->branch_id. ' ภาควิชา ' .  $UsersLogin->department->name .' '. $UsersLogin->department->faculty->name . (isset($UsersLogin->branch_group->name)? '  (ด้าน' .$UsersLogin->branch_group->name.')':'') ; // .' ['.CommonUtil::getBranchName($UsersLogin->branch_group_id, $branchs).']';
+			return "<i class=\"fa fa-user\"></i>" . $UsersLogin->first_name . "  ". $UsersLogin->last_name . " <i class=\"fa fa-key\"></i>(" .  strtolower ( $UsersLogin->users_role->ROLE_NAME ). ") <i class=\"fa fa-university\"></i> หน่วยงาน:" .$UsersLogin->department->name;
 		} else {
 			return '';
 		}

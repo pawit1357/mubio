@@ -2,6 +2,9 @@
 return array (
 		'name' => 'mubio',
 		'defaultController' => 'site',
+        'language' => 'th', // th ภาษาไทย
+        // เพิ่มเติม
+        'timeZone' => 'Asia/Bangkok', // ทวีป Asia/Bangkok (+7.00)
 		'import' => array (
 				'application.models.*',
 				'application.components.*' 

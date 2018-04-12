@@ -1,4 +1,4 @@
-﻿<form id="Form1" method="POST" enctype="multipart/form-data"
+<form id="Form1" method="POST" enctype="multipart/form-data"
 	class="form-horizontal">
 
 	<div class="row">
@@ -10,7 +10,7 @@
 						<?php echo  MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>
 					</div>
 					<div class="actions">
-					<?php echo (UserLoginUtils::canCreate($_SERVER['REQUEST_URI']) == false)? "":  CHtml::link('เพิ่มข้อมูล',array('MDepartment/Create'),array('class'=>'btn btn-default btn-sm'));?>
+					<?php echo (UserLoginUtils::canCreate($_SERVER['REQUEST_URI']) == false)? "":  CHtml::link('เพิ่มข้อมูล',array('Tracking/Create'),array('class'=>'btn btn-default btn-sm'));?>
 					</div>
 				</div>
 				<div class="portlet-body">
@@ -19,42 +19,47 @@
 						<thead>
 							<tr>
 								<th>ลำดับ</th>
-								<th>คณะ /ส่วนงาน</th>
-								
+								<th>รหัส</th>
+								<th>ผู้รองขอ</th>
+								<th>รายละเอียด</th>
+								<th>สถานะ</th>
+								<th>วันที่ร้องขอ</th>
+								<th>Download(Cert)</th>
 								<th class="no-sort"></th>
 							</tr>
 						</thead>
 						<tbody>
-	<?php
-	$counter = 1;
-	$dataProvider = $data->search ();
-	
-	foreach ( $dataProvider->data as $data ) {
-		if ($data->id != - 1) {
-			?>
-<tr>
-								<td class="center"><?php echo $counter;?></td>
-								<td class="center"><?php echo $data->name?></td>
-								
-								
+            	<?php
+            	$counter = 1;
+            	$dataProvider = $data->search ();
+            	
+            	foreach ( $dataProvider->data as $data ) 
+            	{
+            	?>
+                        <tr>
+                        <td class="center"><?php echo $counter;?></td>
+								<td class="center"><?php echo $data->code;?></td>
+								<td class="center"><?php echo $data->usersLogin->first_name.'  '.$data->usersLogin->last_name;?></td>
+								<td class="center"><?php echo $data->description;?></td>
+								<td class="center"><?php echo $data->trackingStatus->name;?></td>
+								<td class="center"><?php echo CommonUtil::getDateThai($data->create_date);?></td>
 								<td class="center">
-<?php if(UserLoginUtils::canUpdate( $_SERVER['REQUEST_URI'])  ){?>
-<a title="Edit" class="fa fa-edit"
-									href="<?php echo Yii::app()->CreateUrl('MDepartment/Update/id/'.$data->id)?>"></a>
-<?php }?>
-<?php if(UserLoginUtils::canDelete( $_SERVER['REQUEST_URI']) ){?>
-<a title="Delete" onclick="return confirm('ต้องการลบข้อมูลใช่หรือไม่?')"
-									class="fa fa-trash"
-									href="<?php echo Yii::app()->CreateUrl('MDepartment/Delete/id/'.$data->id)?>"></a>
-<?php }?>
+									<?php if(isset($data->certificate_path)){?>
+									<a title="Download" class="fa fa-download" target="_blank"
+									href="<?php echo  ConfigUtil::getAppName().''. $data->certificate_path?>">&nbsp;ดาวโหลด</a>	<?php }else{echo "-";}?></td>
+								<td class="center">
+								<?php if(UserLoginUtils::canUpdate( $_SERVER['REQUEST_URI'])){?>
+									<a title="Edit" class="fa fa-edit" href="<?php echo Yii::app()->CreateUrl('Tracking/Update/id/'.$data->id)?>"></a>
+								<?php }?>
+								<?php if(UserLoginUtils::canDelete( $_SERVER['REQUEST_URI'])){?>
+									<a title="Delete" onclick="return confirm('ต้องการลบข้อมูลใช่หรือไม่?')" class="fa fa-trash" href="<?php echo Yii::app()->CreateUrl('Tracking/Delete/id/'.$data->id)?>"></a>
+								<?php }?>	
 								</td>
 							</tr>
 			<?php
-			$counter++;
-		}
-		
-	}
-	?>	
+			     $counter++;
+    	       }
+    	    ?>	
 
 						</tbody>
 					</table>
@@ -103,6 +108,16 @@ jQuery(document).ready(function () {
 	        [5, 10, 15, 20, -1],
 	        [5, 10, 15, 20, "ทั้งหมด"] // change per page values here
 	    ],
+	    "columns": [
+	        { "width": "2%" },
+	        { "width": "5%" },
+	        { "width": "50%" },
+	        { "width": "5%" },
+	        { "width": "20%" },
+	        { "width": "3%" },
+	        { "width": "5%" },
+	        { "width": "10%" },
+	      ],
 	    // set the initial value
 	    "pageLength": 10 ,
 	    "columnDefs": [ {

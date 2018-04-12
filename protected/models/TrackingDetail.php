@@ -1,26 +1,31 @@
 <?php
-class MRoom extends CActiveRecord {
+class TrackingDetail extends CActiveRecord {
+    public $user_id;
 	public static function model($className = __CLASS__) {
 		return parent::model ( $className );
 	}
 	public function tableName() {
-		return 'tb_m_room';
+		return 'tb_tracking_detail';
 	}
 	public function relations() {
-		return array ();
+	    return array (
+	        'tracking' => array(self::BELONGS_TO, 'Tracking', 'tracking_id'),
+	        'trackingStatus' => array(self::BELONGS_TO, 'TrackingStatus', 'tracking_status_id'),
+	        'usersLogin' => array (self::BELONGS_TO,'UsersLogin','create_by' )
+	    );
 	}
 	public function rules() {
 		return array (
 				array (
-						'id,name,number,building_id,room_plan,floor,fac',
+						'id,tracking_id,tracking_status_id,create_date,create_by',
 						'safe' 
 				) 
 		);
 	}
 	public function attributeLabels() {
-		return array ();
+		return array ()
 
-		
+		;
 	}
 	public function getUrl($post = null) {
 		if ($post === null)
@@ -32,29 +37,32 @@ class MRoom extends CActiveRecord {
 	}
 	public function search() {
 		$criteria = new CDbCriteria ();
+		$criteria->with = array (
+		    'tracking'
+		);
+		
+		if (isset ( $this->user_id )) {		    
+		    $criteria->condition = " tracking.user_id = " . $this->user_id;
+		}
+		
 		return new CActiveDataProvider ( get_class ( $this ), array (
 				'criteria' => $criteria,
 				'sort' => array (
-						'defaultOrder' => 't.name asc' 
+						'defaultOrder' => 't.id,tracking_id desc' 
 				),
 				'pagination' => array (
 						'pageSize' => ConfigUtil::getDefaultPageSize ()
-						) 
-		) // ConfigUtil::getDefaultPageSize()
-
-		 );
+						) // ConfigUtil::getDefaultPageSize()
+ 
+		) );
 	}
 	public static function getMax()
 	{
 	    $criteria = new CDbCriteria();
-	    $criteria->condition = " id <> 999";
 	    $criteria->order = 'id DESC';
 	    $row = self::model()->find($criteria);
 	    if (isset($row)) {
 	        $max = $row->id;
-	        if ($max == 999) {
-	            $max = 1000;
-	        }
 	        return $max + 1;
 	    } else {
 	        return 1;

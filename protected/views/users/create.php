@@ -5,7 +5,6 @@ $criDept->condition = " id <> -1";
 $departments = MDepartment::model ()->findAll ($criDept);
 
 
-$branchs = MBranch::model ()->findAll ();
 
 $titles = MTitle::model ()->findAll ();
 $userRoles = UsersRole::model ()->findAll ();
@@ -174,33 +173,16 @@ $userRoles = UsersRole::model ()->findAll ();
 								<select class="form-control select2"
 									name="UsersLogin[department_id]" id="department_id">
 									<option value="0">-- โปรดเลือก --</option>
-			<?php foreach($departments as $item) {?>
-			<option value="<?php echo $item->id?>"><?php echo  $item->branch_id.' '.$item->name  .' '. $item->faculty->name?></option>
-			<?php }?>
+                        			<?php foreach($departments as $item) {?>
+                        			<option value="<?php echo $item->id?>"><?php echo ' '.$item->name;?></option>
+                        			<?php }?>
 								</select>
 							</div>
 							<div id="divReq-department_id"></div>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							<label class="control-label col-md-4">ด้าน:<span
-								class="required">*</span></label>
-							<div class="col-md-6">
-								<select class="form-control select2" name="UsersLogin[branch_group_id]"
-									id="branch_group_id">
-									<option value="0">-- โปรดเลือก --</option>
-			<?php foreach($branchs as $item) {?>
-			<option value="<?php echo $item->id?>"><?php echo $item->name?></option>
-			<?php }?>
-								</select>
-							</div>
-							<div id="divReq-branch_group_id"></div>
-						</div>
-					</div>
-				</div>
+
 				<!-- END FORM-->
 
 			</div>

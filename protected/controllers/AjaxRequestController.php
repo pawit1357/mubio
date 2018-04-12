@@ -29,18 +29,18 @@ class AjaxRequestController extends CController {
 	
 	public function actionIsAlreadyAsnwer($department) {
 		
-		$json = array ();
+// 		$json = array ();
 
-		$cri = new CDbCriteria ();
-		$cri->condition = " owner_department_id=".$department;
+// 		$cri = new CDbCriteria ();
+// 		$cri->condition = " owner_department_id=".$department;
 		
-		$qas = FormQuestionnaireAnswer::model ()->findAll ( $cri );
-		if (isset ( $qas )) {
+// 		$qas = FormQuestionnaireAnswer::model ()->findAll ( $cri );
+// 		if (isset ( $qas )) {
 			
-			$json ["result"] =count($qas);
-		}
+// 			$json ["result"] =count($qas);
+// 		}
 		
-		echo json_encode ( $json );
+// 		echo json_encode ( $json );
 		
 	}
 	public function actionGetRayGenerator() {

@@ -1,6 +1,5 @@
 ﻿<?php
-$branchs = MBranch::model ()->findAll ();
-$mfacs = MFaculty::model ()->findAll ();
+$depts = MDepartment::model ()->findAll ();
 ?>
 <form id="Form1" method="post" enctype="multipart/form-data"
 	class="form-horizontal">
@@ -29,65 +28,74 @@ $mfacs = MFaculty::model ()->findAll ();
 				<h4>ข้อมูลหน่วยงาน</h4>
 				<div class="row">
 					<div class="col-md-10">
-						<div class="form-group">
+						<div class="form-group" id="divReq-id">
 							<label class="control-label col-md-4">รหัส:<span class="required">*</span></label>
 							<div class="col-md-6">
 								<input id="id" type="text"
 									value="<?php echo MDepartment::getMax();?>"
 									class="grpOfInt form-control" name="MDepartment[id]" readonly>
+									
 							</div>
-							<div id="divReq-id"></div>
 						</div>
 					</div>
 				</div>
-
 				<div class="row">
 					<div class="col-md-10">
-						<div class="form-group">
-							<label class="control-label col-md-4">คณะ /ส่วนงาน<span
+						<div class="form-group" id="divReq-parent_id">
+							<label class="control-label col-md-4">ภายใต้หน่วยงาน<span
 								class="required">*</span></label>
 							<div class="col-md-6">
 								<select class="form-control select2"
-									name="MDepartment[faculty_id]" id="faculty_id">
-									<option value="0">-- โปรดเลือก --</option>
-			<?php foreach($mfacs as $item) {?>
-			<option value="<?php echo $item->id?>"><?php echo $item->name ?></option>
-			<?php }?>
+									name="MDepartment[parent_id]" id="parent_id">
+									<option value="-1">-- ไม่ได้อยู่ภายใต้หน่วยงานใด --</option>
+                        			<?php foreach($depts as $item) {?>
+                        			<option value="<?php echo $item->id?>"><?php echo $item->name ?></option>
+                        			<?php }?>
 								</select>
 							</div>
-							<div id="divReq-faculty_id"></div>
 						</div>
 					</div>
 				</div>
-
 				<div class="row">
 					<div class="col-md-10">
-						<div class="form-group">
-							<label class="control-label col-md-4">ภาควิชา:<span
-								class="required">*</span></label>
+						<div class="form-group" id="divReq-code">
+							<label class="control-label col-md-4">Code:<span class="required">*</span></label>
+							<div class="col-md-6">
+								<input id="code" type="text" value="" class="form-control"
+									name="MDepartment[code]">
+									<span class="help-block" id="req-code"><?php echo Pathogen::$req1;?></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-10">
+						<div class="form-group" id="divReq-name">
+							<label class="control-label col-md-4">Name:<span class="required">*</span></label>
 							<div class="col-md-6">
 								<input id="name" type="text" value="" class="form-control"
 									name="MDepartment[name]">
+									<span class="help-block" id="req-name"><?php echo Pathogen::$req1;?></span>
 							</div>
-							<div id="divReq-name"></div>
+							<div></div>
 						</div>
 					</div>
 				</div>
-
 				<div class="row">
 					<div class="col-md-10">
-						<div class="form-group">
-							<label class="control-label col-md-4">สาขา:<span class="required">*</span></label>
+						<div class="form-group" id="divReq-status">
+							<label class="control-label col-md-4">Status<span
+								class="required">*</span></label>
 							<div class="col-md-6">
-								<input id="branch_id" type="text" value="" class="form-control"
-									name="MDepartment[branch_id]">
+								<select class="form-control select2"
+									name="MDepartment[status]" id="status">
+									<option value="1">Active</option>
+                            		<option value="0">InActive</option>
+								</select>
 							</div>
-							<div id="divReq-name"></div>
 						</div>
 					</div>
 				</div>
-
-
 				<!-- END FORM-->
 
 
@@ -117,76 +125,42 @@ $mfacs = MFaculty::model ()->findAll ();
 	<script>
 	var host = 'http://localhost:81/mu_rad';
     jQuery(document).ready(function () {
+    	$("#req-id").hide();
+    	$("#req-code").hide();
+    	$("#req-name").hide();
 	    $('.grpOfInt').keypress(function (event) {
             return isNumber(event);
         });
-   	 $("#id").attr('maxlength','3');
-	 $("#name").attr('maxlength','200');
+        
+//   $("#id").attr('maxlength','3');
+// 	 $("#name").attr('maxlength','200');
     	$( "#Form1" ).submit(function( event ) {
         	
-        	if($("#id").val().length==0){
-        		$("#id").closest('.form-group').addClass('has-error');
-        		$("#divReq-id").html("<span id=\"id-error\" class=\"help-block help-block-error\">This field is required.</span>");
-        		$("#id").focus();
+         	if($("#code").val().length==0){
+        		$("#divReq-code").closest('.form-group').addClass('has-error');
+        		$("#req-code").show();
+        		$("#code").focus();
         		return false;
             }else{
-            	$("#divReq-id").html('');
-            	$("#id").closest('.form-group').removeClass('has-error');
-        		
+            	$("#divReq-code").closest('.form-group').removeClass('has-error');
+            	$("#req-code").hide();
         	}
-        	if($("#name").val().length==0){
-        		$("#name").closest('.form-group').addClass('has-error');
-        		$("#divReq-name").html("<span id=\"name-error\" class=\"help-block help-block-error\">This field is required.</span>");
+         	if($("#name").val().length==0){
+        		$("#divReq-name").closest('.form-group').addClass('has-error');
+        		$("#req-name").show();
         		$("#name").focus();
         		return false;
-                }else{
-            	$("#divReq-name").html('');
-        		$("#name").closest('.form-group').removeClass('has-error');
+            }else{
+            	$("#divReq-name").closest('.form-group').removeClass('has-error');
+            	$("#req-name").hide();
         	}
-        	if($("#faculty_id").val().length==0){
-        		$("#faculty_id").closest('.form-group').addClass('has-error');
-        		$("#divReq-faculty_id").html("<span id=\"name-error\" class=\"help-block help-block-error\">This field is required.</span>");
-        		$("#faculty_id").focus();
-        		return false;
-                }else{
-            	$("#divReq-faculty_id").html('');
-        		$("#faculty_id").closest('.form-group').removeClass('has-error');
-        	}
-        	if($("#branch_id").val().length==0){
-        		$("#branch_id").closest('.form-group').addClass('has-error');
-        		$("#divReq-branch_id").html("<span id=\"name-error\" class=\"help-block help-block-error\">This field is required.</span>");
-        		$("#branch_id").focus();
-        		return false;
-                }else{
-            	$("#divReq-branch_id").html('');
-        		$("#branch_id").closest('.form-group').removeClass('has-error');
-        	}
+
 
         	
         	this.submit();
     	});
     });
-    
-//     function initDepartment(){
-//     	$.ajax({
-// 		     url: host+"/index.php/AjaxRequest/GetDepartment",
-// 		     type: "GET",
-// 		     dataType: "json",
-// 		     success: function (json) {
-// 		            $('#department_id').empty();
-// 		            $('#department_id').append($('<option>').text("Select"));
-// 		            $.each(json, function(i, obj){
-// 		                    $('#department_id').append($('<option>').text(obj.name).attr('value', obj.id));
-// 		            });
-     	
-// 		     },
-// 		     error: function (xhr, ajaxOptions, thrownError) {
-// 				alert('ERROR');
-// 		     }
-//     	});
-//     }
-    
-    
+
 </script>
 
 </form>

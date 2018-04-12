@@ -22,7 +22,6 @@
 							<tr>
 								<th>รหัส</th>
 								<th>ชื่อกลุ่มผู้ใช้</th>
-								<th>ตัวแปร(สำหรับโปรแกรม)</th>
 								
 								<th class="no-sort"></th>
 							</tr>
@@ -37,7 +36,6 @@
 				<tr class="line-<?php echo $counter%2 == 0 ? '1' : '2'?>">
 								<td class="center"><?php echo $data->ROLE_ID?></td>
 								<td class="center"><?php echo $data->ROLE_NAME?></td>
-								<td class="center"><?php echo $data->variable_name?></td>
 
 								<td class="center">
 				
