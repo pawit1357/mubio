@@ -1,6 +1,7 @@
 <form id="Form1" method="POST" enctype="multipart/form-data"
 	class="form-horizontal">
 
+
 	<div class="row">
 		<div class="col-md-12">
 			<!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -10,7 +11,10 @@
 						<?php echo  MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>
 					</div>
 					<div class="actions">
-					<?php echo (UserLoginUtils::canCreate($_SERVER['REQUEST_URI']) == false)? "":  CHtml::link('เพิ่มข้อมูล',array('TrackingStatus/Create'),array('class'=>'btn btn-default btn-sm'));?>
+						<?php echo (UserLoginUtils::canCreate($_SERVER['REQUEST_URI']) == false)? "":  CHtml::link(ConfigUtil::getBtnAddName().'',array('PersonCredit/Create'),array('class'=>'btn btn-default btn-sm'));?>
+						
+<!-- 						<a class="btn btn-default btn-sm" data-toggle="modal" -->
+						<!-- 							href="#modalReport"> รายงาน </a> -->
 					</div>
 				</div>
 				<div class="portlet-body">
@@ -19,46 +23,48 @@
 						<thead>
 							<tr>
 								<th>ลำดับ</th>
-								<th>ชื่อ(สถานะ)</th>
-								<th class="no-sort"></th>
+								<th>ชื่อ</th>
+								<th>นามสกุล</th>
+								<th>ตำแหน่ง</th>
+								<th>เครดิต</th>
+								<th class="no-sort">ดำเนินการ</th>
 							</tr>
 						</thead>
 						<tbody>
-	<?php
-	$counter = 1;
-	$dataProvider = $data->search ();
-	
-	foreach ( $dataProvider->data as $data ) {
-		?>
-<tr>
-<td class="center"><?php echo $counter;?></td>
-								<td class="center"><?php echo $data->name?></td>
+<?php
+$counter = 1;
+$dataProvider = $data->search();
+
+foreach ($dataProvider->data as $data) {
+?>
+							<tr>
+								<td class="center"><?php echo  $counter;?></td>
+								<td class="center"><?php echo $data->firstname?></td>
+								<td class="center"><?php echo $data->surname?></td>
+								<td class="center"><?php echo $data->position->name?></td>
+								<td class="center"><?php echo $data->credit?></td>
 								<td class="center">
-								
-			
-									
-																					<?php if(UserLoginUtils::canUpdate( $_SERVER['REQUEST_URI'])){?>
-<a title="Edit" class="fa fa-edit"
-									href="<?php echo Yii::app()->CreateUrl('TrackingStatus/Update/id/'.$data->id)?>"></a>
-<?php }?>
-<?php if(UserLoginUtils::canDelete( $_SERVER['REQUEST_URI'])){?>
-<a title="Delete" onclick="return confirm('ต้องการลบข้อมูลใช่หรือไม่?')"
-									class="fa fa-trash"
-									href="<?php echo Yii::app()->CreateUrl('TrackingStatus/Delete/id/'.$data->id)?>"></a>
-<?php }?>	
-									
-									
+								<?php if(UserLoginUtils::canUpdate( $_SERVER['REQUEST_URI'])){?>
+									<a title="Edit" class="fa fa-edit" href="<?php echo Yii::app()->CreateUrl('PersonCredit/Update/id/'.$data->id)?>"></a>
+								<?php }?>
+								<?php if(UserLoginUtils::canDelete( $_SERVER['REQUEST_URI'])){?>
+									<a title="Delete" onclick="return confirm('ต้องการลบข้อมูลใช่หรือไม่?')" class="fa fa-trash" href="<?php echo Yii::app()->CreateUrl('PersonCredit/Delete/id/'.$data->id)?>"></a>
+								<?php }?>	
 								</td>
 							</tr>
-			<?php
-			$counter++;
-	}
-	?>	
+<?php
+    $counter ++;
+}
+?>						
 
 						</tbody>
 					</table>
 
+
 				</div>
+
+
+
 			</div>
 		</div>
 	</div>
@@ -109,7 +115,10 @@ jQuery(document).ready(function () {
 	        "orderable": false,
 	  } ]
 		});
+	
+
 });
 
 </script>
+
 </form>

@@ -20,20 +20,6 @@
 				<div class="row">
 					<div class="col-md-9">
 						<div class="form-group">
-							<label class="control-label col-md-3">รหัส:<span class="required">*</span></label>
-							<div class="col-md-6">
-								<input id="ROLE_ID" type="text"
-									value="<?php echo UsersRole::getMax();?>"
-									class="grpOfInt form-control" name="UsersRole[ROLE_ID]"
-									readonly>
-							</div>
-							<div id="divReq-role_id"></div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-9">
-						<div class="form-group">
 							<label class="control-label col-md-3">ชื่อกลุ่มผู้ใช้:<span
 								class="required">*</span></label>
 							<div class="col-md-6">
@@ -200,7 +186,6 @@
 	<script>
 	var host = 'http://localhost:81/mu_rad';
     jQuery(document).ready(function () {
-    	 $("#ROLE_ID").attr('maxlength','3');
       	 $("#ROLE_NAME").attr('maxlength','50');
     
 
@@ -210,15 +195,6 @@
         
         	$( "#Form1" ).submit(function( event ) {
 
-            	if($("#ROLE_ID").val().length==0){
-            		$("#ROLE_ID").closest('.form-group').addClass('has-error');
-            		$("#divReq-role_id").html("<span id=\"id-error\" class=\"help-block help-block-error\">This field is required.</span>");
-            		$("#ROLE_ID").focus();
-            		return false;
-                }else{
-                	$("#divReq-role_id").html('');
-                	$("#ROLE_ID").closest('.form-group').removeClass('has-error');
-            	}
             	
             	if($("#ROLE_NAME").val().length==0){
             		$("#ROLE_NAME").closest('.form-group').addClass('has-error');

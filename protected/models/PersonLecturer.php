@@ -1,8 +1,8 @@
 <?php
 
-class PersonSpecialist extends CActiveRecord
+class PersonLecturer extends CActiveRecord
 {
-
+    
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -10,27 +10,16 @@ class PersonSpecialist extends CActiveRecord
 
     public function tableName()
     {
-        return 'tb_person_specialist';
+        return 'tb_person_lecturer';
     }
 
     public function relations()
     {
-        return array(
-            'person' => array(
-                self::BELONGS_TO,
-                'Person',
-                'person_id'
-            ),
-            'createBy' => array(
-                self::BELONGS_TO,
-                'UsersLogin',
-                'create_by'
-            ),
-            'updateBy' => array(
-                self::BELONGS_TO,
-                'UsersLogin',
-                'update_by'
-            )
+        return array (
+            'title' => array(self::BELONGS_TO, 'MTitle', 'title_id'),
+            'position' => array(self::BELONGS_TO, 'MPosition', 'position_id'),
+            'createBy' => array (self::BELONGS_TO,'UsersLogin','create_by' ),
+            'updateBy' => array (self::BELONGS_TO,'UsersLogin','update_by' ),
         );
     }
 
@@ -38,7 +27,7 @@ class PersonSpecialist extends CActiveRecord
     {
         return array(
             array(
-                'id,person_id,description,create_date,create_by,update_date,update_by',
+                'id,name,title_id,position_id,firstname,surname,desc,create_date,create_by,update_date,update_by',
                 'safe'
             )
         );
@@ -64,18 +53,11 @@ class PersonSpecialist extends CActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria();
-        $criteria->with = array(
-            'Person'
-        );
-        
-        // if (isset ( $this->user_id )) {
-        // $criteria->condition = " tracking.user_id = " . $this->user_id;
-        // }
         
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'sort' => array(
-                'defaultOrder' => 't.name asc'
+                'defaultOrder' => 't.id asc'
             ),
             'pagination' => array(
                 'pageSize' => ConfigUtil::getDefaultPageSize()
@@ -87,14 +69,10 @@ class PersonSpecialist extends CActiveRecord
     public static function getMax()
     {
         $criteria = new CDbCriteria();
-        $criteria->condition = " id <> 999";
-        $criteria->order = 'id DESC';
+        
         $row = self::model()->find($criteria);
         if (isset($row)) {
             $max = $row->id;
-            if ($max == 999) {
-                $max = 1000;
-            }
             return $max + 1;
         } else {
             return 1;

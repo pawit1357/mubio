@@ -1,10 +1,10 @@
 <?php
-class MTitle extends CActiveRecord {
+class MCourse extends CActiveRecord {
 	public static function model($className = __CLASS__) {
 		return parent::model ( $className );
 	}
 	public function tableName() {
-		return 'tb_m_title';
+		return 'tb_m_course';
 	}
 	public function relations() {
 		return array ();
@@ -12,7 +12,7 @@ class MTitle extends CActiveRecord {
 	public function rules() {
 		return array (
 				array (
-						'id,name',
+						'id,name,description,status',
 						'safe' 
 				) 
 		);

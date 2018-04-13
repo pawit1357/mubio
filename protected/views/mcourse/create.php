@@ -1,7 +1,4 @@
-﻿<?php
-$depts = MDepartment::model ()->findAll ();
-?>
-<form id="Form1" method="post" enctype="multipart/form-data"
+﻿<form id="Form1" method="post" enctype="multipart/form-data"
 	class="form-horizontal">
 	<!-- 	<div class="alert alert-danger display-hide"> -->
 	<!-- 		<button class="close" data-close="alert"></button> -->
@@ -19,66 +16,49 @@ $depts = MDepartment::model ()->findAll ();
 
 			</div>
 			<div class="actions">
-			<?php echo CHtml::link('ย้อนกลับ',array('MDepartment/'),array('class'=>'btn btn-default btn-sm'));?>
+			<?php echo CHtml::link('ย้อนกลับ',array('MCourse/'),array('class'=>'btn btn-default btn-sm'));?>
 			</div>
 		</div>
 		<div class="portlet-body form">
 			<div class="form-body">
 				<!-- BEGIN FORM-->
-				<h4>ข้อมูลหน่วยงาน</h4>
-
-				<div class="row">
-					<div class="col-md-10">
-						<div class="form-group" id="divReq-parent_id">
-							<label class="control-label col-md-4">ภายใต้หน่วยงาน<span
-								class="required">*</span></label>
-							<div class="col-md-6">
-								<select class="form-control select2"
-									name="MDepartment[parent_id]" id="parent_id">
-									<option value="-1">-- ไม่ได้อยู่ภายใต้หน่วยงานใด --</option>
-                        			<?php foreach($depts as $item) {?>
-                        			<option value="<?php echo $item->id?>"><?php echo $item->name ?></option>
-                        			<?php }?>
-								</select>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-10">
-						<div class="form-group" id="divReq-code">
-							<label class="control-label col-md-4">Code:<span class="required">*</span></label>
-							<div class="col-md-6">
-								<input id="code" type="text" value="" class="form-control"
-									name="MDepartment[code]">
-									<span class="help-block" id="req-code"><?php echo Pathogen::$req1;?></span>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="row">
 					<div class="col-md-10">
 						<div class="form-group" id="divReq-name">
-							<label class="control-label col-md-4">Name:<span class="required">*</span></label>
+							<label class="control-label col-md-4">ชื่อหลักสูตร:<span class="required">*</span></label>
 							<div class="col-md-6">
 								<input id="name" type="text" value="" class="form-control"
-									name="MDepartment[name]">
-									<span class="help-block" id="req-name"><?php echo Pathogen::$req1;?></span>
+									name="MCourse[name]"> <span class="help-block" id="req-name"><?php echo Pathogen::$req1;?></span>
 							</div>
 							<div></div>
 						</div>
 					</div>
 				</div>
+				
+				<div class="row">
+					<div class="col-md-10">
+						<div class="form-group" id="divReq-description">
+							<label class="control-label col-md-4">รายละเอียดหลักสูตร:<span class="required">*</span></label>
+							<div class="col-md-6">
+								<input id="description" type="text" value=""
+									class="form-control" name="MCourse[description]"> <span
+									class="help-block" id="req-description"><?php echo Pathogen::$req1;?></span>
+							</div>
+							<div></div>
+						</div>
+					</div>
+				</div>
+				
 				<div class="row">
 					<div class="col-md-10">
 						<div class="form-group" id="divReq-status">
 							<label class="control-label col-md-4">Status<span
 								class="required">*</span></label>
 							<div class="col-md-6">
-								<select class="form-control select2"
-									name="MDepartment[status]" id="status">
+								<select class="form-control select2" name="MCourse[status]"
+									id="status">
 									<option value="1">Active</option>
-                            		<option value="0">InActive</option>
+									<option value="0">InActive</option>
 								</select>
 							</div>
 						</div>
@@ -94,7 +74,7 @@ $depts = MDepartment::model ()->findAll ();
 						<div class="row">
 							<div class="col-md-offset-3 col-md-9">
 								<button type="submit" class="btn green uppercase"><?php echo ConfigUtil::getBtnSaveButton();?></button>
-								<?php echo CHtml::link(ConfigUtil::getBtnCancelButton(),array('MDepartment/'),array('class'=>'btn btn-default uppercase'));?>
+								<?php echo CHtml::link(ConfigUtil::getBtnCancelButton(),array('MCourse/'),array('class'=>'btn btn-default uppercase'));?>
 							</div>
 						</div>
 					</div>
@@ -113,8 +93,9 @@ $depts = MDepartment::model ()->findAll ();
 	<script>
 	var host = 'http://localhost:81/mu_rad';
     jQuery(document).ready(function () {
-    	$("#req-code").hide();
     	$("#req-name").hide();
+    	$("#req-description").hide();
+    	
 	    $('.grpOfInt').keypress(function (event) {
             return isNumber(event);
         });

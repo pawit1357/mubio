@@ -25,19 +25,6 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label class="control-label col-md-3">รหัส:<span class="required">*</span></label>
-							<div class="col-md-6">
-								<input id="id" type="text"
-									value="<?php echo MTitle::getMax();?>"
-									class="grpOfInt form-control" name="MTitle[id]" readonly>
-							</div>
-							<div id="divReq-id"></div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
 							<label class="control-label col-md-3">ชื่อ:<span class="required">*</span></label>
 							<div class="col-md-6">
 								<input id="name" type="text" value=""
@@ -78,19 +65,10 @@
 	    $('.grpOfInt').keypress(function (event) {
             return isNumber(event);
         });
-   	 $("#id").attr('maxlength','3');
+
 	 $("#name").attr('maxlength','200');
     	$( "#Form1" ).submit(function( event ) {
         	
-        	if($("#id").val().length==0){
-        		$("#id").closest('.form-group').addClass('has-error');
-        		$("#divReq-id").html("<span id=\"id-error\" class=\"help-block help-block-error\">This field is required.</span>");
-        		return false;
-            }else{
-            	$("#divReq-id").html('');
-            	$("#id").closest('.form-group').removeClass('has-error');
-        		
-        	}
         	if($("#name").val().length==0){
         		$("#name").closest('.form-group').addClass('has-error');
         		$("#divReq-name").html("<span id=\"name-error\" class=\"help-block help-block-error\">This field is required.</span>");
@@ -103,26 +81,6 @@
         	this.submit();
     	});
     });
-    
-//     function initDepartment(){
-//     	$.ajax({
-// 		     url: host+"/index.php/AjaxRequest/GetDepartment",
-// 		     type: "GET",
-// 		     dataType: "json",
-// 		     success: function (json) {
-// 		            $('#department_id').empty();
-// 		            $('#department_id').append($('<option>').text("Select"));
-// 		            $.each(json, function(i, obj){
-// 		                    $('#department_id').append($('<option>').text(obj.name).attr('value', obj.id));
-// 		            });
-     	
-// 		     },
-// 		     error: function (xhr, ajaxOptions, thrownError) {
-// 				alert('ERROR');
-// 		     }
-//     	});
-//     }
-    
     
 </script>
 

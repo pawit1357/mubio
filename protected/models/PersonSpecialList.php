@@ -1,8 +1,8 @@
 <?php
 
-class MPosition extends CActiveRecord
+class PersonSpecialList extends CActiveRecord
 {
-
+    
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -10,27 +10,24 @@ class MPosition extends CActiveRecord
 
     public function tableName()
     {
-        return 'tb_m_position';
+        return 'tb_person_specialist';
     }
 
     public function relations()
     {
-        return array();
+        return array (
+            'title' => array(self::BELONGS_TO, 'MTitle', 'title_id'),
+            'position' => array(self::BELONGS_TO, 'MPosition', 'position_id'),
+            'createBy' => array (self::BELONGS_TO,'UsersLogin','create_by' ),
+            'updateBy' => array (self::BELONGS_TO,'UsersLogin','update_by' ),
+        );
     }
 
     public function rules()
     {
-        // return [
-        
-        // ['name', 'filter', 'filter' => 'trim'],
-        // ['name', 'required'],
-        // // ['Email', 'email'],
-        // ['Email', 'unique', 'targetClass' => '\models\Position', 'message' => 'This email address has already been taken.'],
-        
-        // ];
         return array(
             array(
-                'id,name',
+                'id,name,title_id,position_id,firstname,surname,desc,create_date,create_by,update_date,update_by',
                 'safe'
             )
         );
@@ -39,7 +36,6 @@ class MPosition extends CActiveRecord
     public function attributeLabels()
     {
         return array();
-        
     }
 
     public function getUrl($post = null)
@@ -57,10 +53,11 @@ class MPosition extends CActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria();
+        
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'sort' => array(
-                'defaultOrder' => 't.name asc'
+                'defaultOrder' => 't.id asc'
             ),
             'pagination' => array(
                 'pageSize' => ConfigUtil::getDefaultPageSize()
@@ -69,5 +66,16 @@ class MPosition extends CActiveRecord
         ));
     }
 
-
+    public static function getMax()
+    {
+        $criteria = new CDbCriteria();
+        
+        $row = self::model()->find($criteria);
+        if (isset($row)) {
+            $max = $row->id;
+            return $max + 1;
+        } else {
+            return 1;
+        }
+    }
 }

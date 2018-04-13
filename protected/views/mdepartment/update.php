@@ -26,19 +26,7 @@ $depts = MDepartment::model ()->findAll ();
 			<div class="form-body">
 				<!-- BEGIN FORM-->
 				<h4>ข้อมูลหน่วยงาน</h4>
-				<div class="row">
-					<div class="col-md-10">
-						<div class="form-group" id="divReq-id">
-							<label class="control-label col-md-4">รหัส:<span class="required">*</span></label>
-							<div class="col-md-6">
-								<input id="id" type="text"
-									value="<?php echo $data->id;?>"
-									class="grpOfInt form-control" name="MDepartment[id]" readonly>
-									
-							</div>
-						</div>
-					</div>
-				</div>
+
 				<div class="row">
 					<div class="col-md-10">
 						<div class="form-group" id="divReq-parent_id">
@@ -125,7 +113,6 @@ $depts = MDepartment::model ()->findAll ();
 	<script>
 	var host = 'http://localhost:81/mu_rad';
     jQuery(document).ready(function () {
-    	$("#req-id").hide();
     	$("#req-code").hide();
     	$("#req-name").hide();
 	    $('.grpOfInt').keypress(function (event) {

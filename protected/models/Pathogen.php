@@ -103,19 +103,14 @@ class Pathogen extends CActiveRecord
 
     public static function getMax()
     {
-        // $criteria = new CDbCriteria();
-        // $criteria->condition = " id <> 999";
-        // $criteria->order = 'id DESC';
-        // $row = self::model()->find($criteria);
-        // if (isset($row)) {
-        // $max = $row->id;
-        // if ($max == 999) {
-        // $max = 1000;
-        // }
-        // return $max + 1;
-        // } else {
-        // return 1;
-        // }
-        return 0;
+        $criteria = new CDbCriteria();
+        
+        $row = self::model()->find($criteria);
+        if (isset($row)) {
+            $max = $row->id;
+            return $max + 1;
+        } else {
+            return 1;
+        }
     }
 }

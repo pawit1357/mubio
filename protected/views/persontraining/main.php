@@ -11,9 +11,7 @@
 						<?php echo  MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>
 					</div>
 					<div class="actions">
-						<?php echo (UserLoginUtils::canCreate($_SERVER['REQUEST_URI']) == false)? "":  CHtml::link(ConfigUtil::getBtnAddName().'(รายบุคคล)',array('Form4/Create'),array('class'=>'btn btn-default btn-sm'));?>
-						<?php echo (UserLoginUtils::canCreate($_SERVER['REQUEST_URI']) == false)? "":  CHtml::link("แนบไฟล์",array('Form4/AttachFile'),array('class'=>'btn btn-default btn-sm'));?>
-						<?php echo (UserLoginUtils::canCreate($_SERVER['REQUEST_URI']) == false)? "":  CHtml::link("อัพโหลดจากไฟล์",array('Form4/ImportFile'),array('class'=>'btn btn-default btn-sm'));?>
+						<?php echo (UserLoginUtils::canCreate($_SERVER['REQUEST_URI']) == false)? "":  CHtml::link(ConfigUtil::getBtnAddName().'',array('PersonTraining/Create'),array('class'=>'btn btn-default btn-sm'));?>
 						
 <!-- 						<a class="btn btn-default btn-sm" data-toggle="modal" -->
 						<!-- 							href="#modalReport"> รายงาน </a> -->
@@ -25,13 +23,10 @@
 						<thead>
 							<tr>
 								<th>ลำดับ</th>
-								<th>ตำแหน่ง</th>
 								<th>ชื่อ</th>
 								<th>นามสกุล</th>
-								<th>ความเชี่ยวชาญ
-								
-								<th>
-								
+								<th>ตำแหน่ง</th>
+								<th>หลักสูตรที่อบรม</th>
 								<th class="no-sort">ดำเนินการ</th>
 							</tr>
 						</thead>
@@ -44,10 +39,19 @@ foreach ($dataProvider->data as $data) {
 ?>
 							<tr>
 								<td class="center"><?php echo  $counter;?></td>
+								<td class="center"><?php echo $data->firstname?></td>
+								<td class="center"><?php echo $data->surname?></td>
 								<td class="center"><?php echo $data->position->name?></td>
-								<td class="center"><?php echo $data->person->firstname?></td>
-								<td class="center"><?php echo $data->person->surname?></td>
-								<td class="center"><?php echo $data->description?></td>
+								<td class="center"><?php echo $data->course->name?></td>
+								
+								<td class="center">
+								<?php if(UserLoginUtils::canUpdate( $_SERVER['REQUEST_URI'])){?>
+									<a title="Edit" class="fa fa-edit" href="<?php echo Yii::app()->CreateUrl('PersonTraining/Update/id/'.$data->id)?>"></a>
+								<?php }?>
+								<?php if(UserLoginUtils::canDelete( $_SERVER['REQUEST_URI'])){?>
+									<a title="Delete" onclick="return confirm('ต้องการลบข้อมูลใช่หรือไม่?')" class="fa fa-trash" href="<?php echo Yii::app()->CreateUrl('PersonTraining/Delete/id/'.$data->id)?>"></a>
+								<?php }?>	
+								</td>
 							</tr>
 <?php
     $counter ++;

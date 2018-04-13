@@ -25,23 +25,10 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label class="control-label col-md-3">รหัส:<span class="required">*</span></label>
-							<div class="col-md-6">
-								<input id="id" type="text"
-									value="<?php echo MPosition::getMax();?>"
-									class="grpOfInt form-control" name="MPosition[id]" readonly>
-							</div>
-							<div id="divReq-id"></div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
 							<label class="control-label col-md-3">ชื่อ:<span class="required">*</span></label>
 							<div class="col-md-6">
-								<input id="name" type="text" value=""
-									class="form-control" name="MPosition[name]">
+								<input id="name" type="text" value="" class="form-control"
+									name="MPosition[name]">
 							</div>
 							<div id="divReq-name"></div>
 						</div>
@@ -78,7 +65,6 @@
 	    $('.grpOfInt').keypress(function (event) {
             return isNumber(event);
         });
-   	 $("#id").attr('maxlength','3');
 	 $("#name").attr('maxlength','200');
     	$( "#Form1" ).submit(function( event ) {
         	
@@ -103,26 +89,6 @@
         	this.submit();
     	});
     });
-    
-//     function initDepartment(){
-//     	$.ajax({
-// 		     url: host+"/index.php/AjaxRequest/GetDepartment",
-// 		     type: "GET",
-// 		     dataType: "json",
-// 		     success: function (json) {
-// 		            $('#department_id').empty();
-// 		            $('#department_id').append($('<option>').text("Select"));
-// 		            $.each(json, function(i, obj){
-// 		                    $('#department_id').append($('<option>').text(obj.name).attr('value', obj.id));
-// 		            });
-     	
-// 		     },
-// 		     error: function (xhr, ajaxOptions, thrownError) {
-// 				alert('ERROR');
-// 		     }
-//     	});
-//     }
-    
     
 </script>
 

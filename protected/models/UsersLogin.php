@@ -59,11 +59,15 @@ class UsersLogin extends CActiveRecord {
 		) );
 	}
 	public static function getMax() {
-		$criteria = new CDbCriteria ();
-		$criteria->order = 'id DESC';
-		$row = self::model ()->find ( $criteria );
-		$max = $row->id;
-		return $max + 1;
+	    $criteria = new CDbCriteria();
+	    
+	    $row = self::model()->find($criteria);
+	    if (isset($row)) {
+	        $max = $row->id;
+	        return $max + 1;
+	    } else {
+	        return 1;
+	    }
 	}
 }
 
