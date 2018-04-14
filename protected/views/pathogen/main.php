@@ -18,46 +18,49 @@
 						id="gvResult">
 						<thead>
 							<tr>
-								<th>ลำดับ</th>
-								<th>ชื่อ</th>
+
+								<th style="text-align: center; vertical-align: middle;">ลำดับที่</th>
+								<th style="text-align: center; vertical-align: middle;">หน่วยงาน</th>
+								<th style="text-align: center; vertical-align: middle;">หมายเลขจดแจ้ง</th>
+								<th style="text-align: center; vertical-align: middle;">ชื่อเชื้อโรค/พิษจากสัตว์</th>
+								<th style="text-align: center; vertical-align: middle;">รหัสเชื้อโรค/พิษจากสัตว์</th>
+								<th style="text-align: center; vertical-align: middle;">ชื่อผู้ควบคุม</th>
+								<th style="text-align: center; vertical-align: middle;">ชื่อผู้จดแจ้ง</th>
+								<th style="text-align: center; vertical-align: middle;">เบอร์ติดต่อ</th>
+								<th style="text-align: center; vertical-align: middle;">วันที่แจ้ง</th>
 								<th class="no-sort"></th>
 							</tr>
 						</thead>
 						<tbody>
 	<?php
-	$counter = 1;
-	$dataProvider = $data->search ();
-	
-	foreach ( $dataProvider->data as $data ) {
-		?>
-<tr>
-<td class="center"><?php echo $counter;?></td>
-								<td class="center"><?php echo $data->department_id?></td>
-								<td class="center">
-								
-			
-									
-																					<?php if(UserLoginUtils::canUpdate( $_SERVER['REQUEST_URI'])){?>
-<a title="Edit" class="fa fa-edit"
+$counter = 1;
+$dataProvider = $data->search();
+foreach ($dataProvider->data as $data) {
+    ?>
+										<tr>
+
+								<td style="text-align: center;"><?php echo $counter;?></td>
+								<td style="text-align: left;"><?php echo $data->department->name;?></td>
+								<td><?php echo $data->pathogen_no;?></td>
+								<td><?php echo $data->pathogen_name;?></td>
+								<td><?php echo $data->pathogen_code;?></td>
+								<td><?php echo $data->pathogen_volume;?></td>
+								<td><?php echo $data->inform_name;?></td>
+								<td><?php echo $data->phone_number;?></td>
+								<td><?php echo CommonUtil::getDateThai($data->inform_date);?></td>
+								<td><?php if(UserLoginUtils::canUpdate( $_SERVER['REQUEST_URI'])){?>
+									<a title="Edit" class="fa fa-edit"
 									href="<?php echo Yii::app()->CreateUrl('Pathogen/Update/id/'.$data->id)?>"></a>
-<?php }?>
-<?php if(UserLoginUtils::canDelete( $_SERVER['REQUEST_URI'])){?>
-<a title="Delete" onclick="return confirm('ต้องการลบข้อมูลใช่หรือไม่?')"
-									class="fa fa-trash"
-									href="<?php echo Yii::app()->CreateUrl('Pathogen/Delete/id/'.$data->id)?>"></a>
-<?php }?>	
-									
-									
-								</td>
+								<?php }?></td>
+
 							</tr>
-			<?php
-			$counter++;
-	}
-	?>	
+	<?php
+    $counter ++;
+}
+?>	
 
 						</tbody>
 					</table>
-
 				</div>
 			</div>
 		</div>

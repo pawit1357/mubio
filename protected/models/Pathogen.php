@@ -11,7 +11,7 @@ class Pathogen extends CActiveRecord
     public static $label6 = "e-mail address";
 
     //Require:
-    public static $req1 = " This field has error. ";
+    public static $req1 = "This field is require.";
     
     // public static const label7 = "หมายเลขจดแจ้ง ";
     public static function model($className = __CLASS__)
@@ -26,7 +26,11 @@ class Pathogen extends CActiveRecord
 
     public function relations()
     {
-        return array();
+        return array (
+            'department' => array(self::BELONGS_TO, 'MDepartment', 'department_id'),
+            'createBy' => array (self::BELONGS_TO,'UsersLogin','create_by' ),
+            'updateBy' => array (self::BELONGS_TO,'UsersLogin','update_by' ),
+        );
     }
 
     public function rules()

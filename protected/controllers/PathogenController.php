@@ -87,6 +87,10 @@ class PathogenController extends CController
                 $model->import = $imports[$index];
                 $model->export = $exports[$index];
                 $model->import_to_other = $import_to_others[$index];
+                $model->create_by = UserLoginUtils::getUsersLoginId();
+                $model->create_date = date("Y-m-d H:i:s");
+                $model->update_by = UserLoginUtils::getUsersLoginId();
+                $model->update_date = date("Y-m-d H:i:s");
                 $index ++;
                 $model->save ();
  
@@ -132,7 +136,9 @@ class PathogenController extends CController
         if (isset($_POST['Pathogen'])) {
             $transaction = Yii::app()->db->beginTransaction();
             $model->attributes = $_POST['Pathogen'];
-            
+            $model->update_by = UserLoginUtils::getUsersLoginId();
+            $model->update_date = date("Y-m-d H:i:s");
+            $model->inform_date = CommonUtil::getDate($model->inform_date);
             $model->update();
             $transaction->commit();
             

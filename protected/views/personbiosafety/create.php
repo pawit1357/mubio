@@ -100,12 +100,6 @@ $positions = MPosition::model()->findAll();
 							</div>
 						</div>
 					</div>
-
-
-
-
-
-					<!-- END -->
 				</div>
 
 				<!-- END FORM-->
