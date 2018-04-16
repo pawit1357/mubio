@@ -9,7 +9,7 @@ $departments = MDepartment::model ()->findAll ( $criteria );
 		<div class="portlet-title">
 			<div class="caption">
 				
-					<?php echo MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>
+					<?php echo  MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>
 				<span class="caption-helper">(ระบุเงื่อนไขสำหรับการค้นหา)</span>
 			</div>
 			<div class="actions"></div>
@@ -23,14 +23,7 @@ $departments = MDepartment::model ()->findAll ( $criteria );
 							<label class="control-label col-md-3">หน่วยงาน:<span
 								class="required">*</span></label>
 							<div class="col-md-6">
-								<select class="form-control select2"
-									name="Pathogen[department_id]" id="department_id">
-									<option value="0">-- โปรดเลือก --</option>
-                        			<?php foreach($departments as $item) {?>
-                        			<option value="<?php echo $item->id?>"><?php echo $item->name.'('.$item->code.')';?></option>
-                        			<?php }?>
-								</select>
-								<span class="help-block" id="req-department_id"><?php echo Pathogen::$req1;?></span>
+								<input id="" type="text" name="PersonLecturer[create_date]">
 							</div>
 							<div></div>
 						</div>

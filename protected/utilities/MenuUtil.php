@@ -211,13 +211,13 @@ class MenuUtil {
 				$action = $link [3];
 				break;
 		}
-		// echo "<font color='red'>:" .count($link).','. $currentPage . ',' . $action . ":</font>";
+// 		echo "<font color='red'>:" .count($link).','. $currentPage . ',' . $action . ":</font>";
 		$menuName = "";
 		
 		$childs = $Menus = UserLoginUtils::getMenuInRole ();
 		
 		if (isset ( $childs )) {
-			if ($currentPage == "Report") {
+		    if (strtolower($currentPage) == strtolower("Report")) {
 				foreach ( $childs as $child ) {
 					$compare = explode ( "/", $child->URL_NAVIGATE );
 					if (strtolower ( $action ) == strtolower ( $compare [count ( $compare ) - 1] )) {

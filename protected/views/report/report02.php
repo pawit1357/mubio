@@ -9,7 +9,7 @@ $departments = MDepartment::model ()->findAll ( $criteria );
 		<div class="portlet-title">
 			<div class="caption">
 				
-					<?php echo MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>
+					<?php echo  MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>
 				<span class="caption-helper">(ระบุเงื่อนไขสำหรับการค้นหา)</span>
 			</div>
 			<div class="actions"></div>
