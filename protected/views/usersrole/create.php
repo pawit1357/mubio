@@ -1,10 +1,9 @@
 ﻿<?php
-
 ?>
 <form id="Form1" method="post" enctype="multipart/form-data"
 	class="form-horizontal">
 
-	<div class="portlet box blue">
+	<div class="<?php echo ConfigUtil::getPortletTheme(); ?>">
 		<div class="portlet-title">
 			<div class="caption">
 				<?php echo  MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>
@@ -44,14 +43,14 @@
 
 					<tbody>
 	<?php
-	
-	$counter = 1;
-	$dataProvider = Menu::model ()->search ();
-	$index = 1;
-	foreach ( $dataProvider->data as $item ) {
-		
-		if ($item->PREVIOUS_MENU_ID == - 1) {
-			?>
+
+$counter = 1;
+$dataProvider = Menu::model()->search();
+$index = 1;
+foreach ($dataProvider->data as $item) {
+    
+    if ($item->PREVIOUS_MENU_ID == - 1) {
+        ?>
 					<tr>
 
 							<td class="center"><i class="fa fa-th"></i>&nbsp;&nbsp;<?php echo $item->MENU_NAME?></td>
@@ -68,10 +67,10 @@
 								<?php echo (($item->URL_NAVIGATE == "#" || $item->URL_NAVIGATE ==null))? 'disabled="disabled"':'' ?> /></td>
 						</tr>
 				<?php
-			foreach ( $dataProvider->data as $item2 ) {
-				if ($item2->PREVIOUS_MENU_ID == $item->MENU_ID) {
-					
-					?>
+        foreach ($dataProvider->data as $item2) {
+            if ($item2->PREVIOUS_MENU_ID == $item->MENU_ID) {
+                
+                ?>
 						<tr>
 							
 							<?php if ($item2->URL_NAVIGATE == "#") {?>
@@ -94,11 +93,11 @@
 								<?php echo (($item2->URL_NAVIGATE == "#" || $item2->URL_NAVIGATE ==null))? 'disabled="disabled"':'' ?> /></td>
 						</tr>
 												<?php
-					if ($item2->URL_NAVIGATE == "#") {
-						foreach ( $dataProvider->data as $item3 ) {
-							
-							if ($item3->PREVIOUS_MENU_ID == $item2->MENU_ID) {
-								?>
+                if ($item2->URL_NAVIGATE == "#") {
+                    foreach ($dataProvider->data as $item3) {
+                        
+                        if ($item3->PREVIOUS_MENU_ID == $item2->MENU_ID) {
+                            ?>
 						<tr>
 
 							<td class="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
@@ -117,12 +116,12 @@
 								<?php echo (($item3->URL_NAVIGATE == "#" || $item3->URL_NAVIGATE ==null))? 'disabled="disabled"':'' ?> /></td>
 						</tr>
 						<?php
-								if ($item3->URL_NAVIGATE == "#") {
-									foreach ( $dataProvider->data as $item4 ) {
-										
-										if ($item4->PREVIOUS_MENU_ID == $item3->MENU_ID) {
-											
-											?>
+                            if ($item3->URL_NAVIGATE == "#") {
+                                foreach ($dataProvider->data as $item4) {
+                                    
+                                    if ($item4->PREVIOUS_MENU_ID == $item3->MENU_ID) {
+                                        
+                                        ?>
 												<tr class="line-<?php echo $counter%2 == 0 ? '1' : '2'?>">
 
 							<td class="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
@@ -141,37 +140,38 @@
 								<?php echo (($item4->URL_NAVIGATE == "#" || $item4->URL_NAVIGATE ==null))? 'disabled="disabled"':'' ?> /></td>
 						</tr>
 																									<?php
-										}
-									}
-								}
-								?>
+                                    }
+                                }
+                            }
+                            ?>
 						
 																			<?php
-							}
-						}
-					}
-				}
-			}
-			$index ++;
-		}
-	}
-	?>
+                        }
+                    }
+                }
+            }
+        }
+        $index ++;
+    }
+}
+?>
 						</tbody>
 				</table>
 
 				<!-- END FORM-->
-				<div class="form-actions">
-					<div class="row">
-						<div class="col-md-9">
-							<div class="row">
-								<div class="col-md-offset-3 col-md-9">
-									<button type="submit" class="btn green uppercase"><?php echo ConfigUtil::getBtnSaveButton();?></button>
+
+			</div>
+			<div class="form-actions">
+				<div class="row">
+					<div class="col-md-9">
+						<div class="row">
+							<div class="col-md-offset-3 col-md-9">
+								<button type="submit" class="btn green uppercase"><?php echo ConfigUtil::getBtnSaveButton();?></button>
 								<?php echo CHtml::link(ConfigUtil::getBtnCancelButton(),array('UsersRole/'),array('class'=>'btn btn-default uppercase'));?>
 					</div>
-							</div>
 						</div>
-						<div class="col-md-9"></div>
 					</div>
+					<div class="col-md-9"></div>
 				</div>
 			</div>
 		</div>

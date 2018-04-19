@@ -6,7 +6,7 @@ $userRoles = UsersRole::model ()->findAll ();
 <form id="Form1" method="post" enctype="multipart/form-data"
 	class="form-horizontal">
 
-	<div class="portlet box blue">
+	<div class="<?php echo ConfigUtil::getPortletTheme(); ?>">
 		<div class="portlet-title">
 			<div class="caption">
 				<i class="fa fa-cogs"></i> เพิ่มข้อมูลผู้ใช้งานระบบ

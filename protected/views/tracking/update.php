@@ -5,7 +5,7 @@ $trackingStatus = TrackingStatus::model()->findAll();
 ?>
 <form id="Form1" method="post" enctype="multipart/form-data"
 	class="form-horizontal">
-	<div class="portlet box blue">
+	<div class="<?php echo ConfigUtil::getPortletTheme(); ?>">
 		<div class="portlet-title">
 			<div class="caption">
 				<?php echo  MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>

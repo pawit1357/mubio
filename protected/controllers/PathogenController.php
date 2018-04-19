@@ -17,7 +17,7 @@ class PathogenController extends CController
             $this->redirect(Yii::app()->createUrl('DashBoard/Permission'));
         }
         $model = new Pathogen();
-        $this->render('//Pathogen/main', array(
+        $this->render('//pathogen/main', array(
             'data' => $model
         ));
     }
@@ -104,7 +104,7 @@ class PathogenController extends CController
             $this->redirect ( Yii::app ()->createUrl ( 'Pathogen' ) );
         } else {
             // Render
-            $this->render('//Pathogen/create');
+            $this->render('//pathogen/create');
         }
     }
 
@@ -144,7 +144,7 @@ class PathogenController extends CController
             
             $this->redirect(Yii::app()->createUrl('Pathogen'));
         }
-        $this->render('//Pathogen/update', array(
+        $this->render('//pathogen/update', array(
             'data' => $model
         ));
     }

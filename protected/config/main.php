@@ -21,6 +21,16 @@ return array (
 						'password' => 'P@ssw0rd',
 						'charset' => 'utf8' 
 				),
+		  
+// 		     	'db' => array (
+// 						'class' => 'CDbConnection',
+// 						'connectionString' => 'mysql:host=localhost;dbname=cp900485_mubio',
+// 						'emulatePrepare' => true,
+// 						'username' => 'cp900485_mubio',
+// 						'password' => 'mubioP@ssw0rd',
+// 						'charset' => 'utf8' 
+// 				),
+		   
 				'Smtpmail' => array (
 						'class' => 'application.extensions.smtpmail.PHPMailer',
 						'Host' => "smtp.gmail.com",

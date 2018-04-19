@@ -6,7 +6,7 @@ $departments = MDepartment::model()->findAll($deptCri);
 <form id="Form1" method="post" enctype="multipart/form-data"
 	class="form-horizontal">
 
-	<div class="portlet box blue">
+	<div class="<?php echo ConfigUtil::getPortletTheme(); ?>">
 		<div class="portlet-title">
 			<div class="caption">
 				<?php echo  MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>
@@ -29,7 +29,7 @@ $departments = MDepartment::model()->findAll($deptCri);
 							<h4 class="panel-title">
 								<a class="accordion-toggle" data-toggle="collapse"
 									data-parent="#accordion1" href="#collapse_1"> <i
-									class="fa fa-user"></i> รายละเอียดผู้จดแจ้ง
+									class="fa fa-info"></i> รายละเอียดผู้จดแจ้ง
 								</a>
 							</h4>
 						</div>
@@ -143,7 +143,7 @@ $departments = MDepartment::model()->findAll($deptCri);
 							<h4 class="panel-title">
 								<a class="accordion-toggle" data-toggle="collapse"
 									data-parent="#accordion2" href="#collapse_2"> <i
-									class="fa fa-user"></i> รายละเอียดรายการที่จดแจ้ง
+									class="fa fa-list-alt"></i> รายละเอียดรายการที่จดแจ้ง
 								</a>
 							</h4>
 						</div>

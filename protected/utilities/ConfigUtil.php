@@ -3,7 +3,7 @@
 class ConfigUtil
 {
 
-    private static $siteName = 'http://radbase.mahidol/index.php/Site/LogOut';
+    private static $siteName = 'http://myapps1357.com/mubio';
     private static $ApplicationTitle = 'MU-BIO | ระบบสารสนเทศด้านความปลอดภัยทางชีวภาพ';
     private static $ApplicationCopyRight = '2012 &copy; กองกายภาพและสิ่งแวดล้อม มหาวิทยาลัยมหิดล ';
     private static $ApplicationAddress = '';
@@ -16,12 +16,14 @@ class ConfigUtil
     private static $btnCancelButton = 'ยกเลิก';
     private static $btnCloseButton = 'ปิด';
 
-    private static $mode = "DEV";
+    private static $mode = "PRD";//PRD : DEV
     private static $testUser = "system";
     private static $testPassword = "P@ssw0rd";
 
     private static $defaultPageSize = 1000;
 
+    private static $portletTheme ='portlet box blue-hoki';
+    
     public static function getDbName()
     {
         $str = Yii::app()->db->connectionString;
@@ -37,7 +39,11 @@ class ConfigUtil
         list ($xx, $hostName) = explode('=', $host);
         return $hostName;
     }
-
+    public static function getPortletTheme()
+    {
+        return self::$portletTheme;
+    }
+    
     public static function getBtnAddName()
     {
         return self::$btnAddButton;
@@ -75,7 +81,7 @@ class ConfigUtil
 
     public static function getAppName()
     {
-        return (self::$mode == "DEV" ? self::$AppName : '');
+        return (self::$mode == "DEV" ?  '/mubio':self::$AppName);
     }
 
     public static function getApplicationTitle()

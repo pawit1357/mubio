@@ -6,7 +6,7 @@ $departments = MDepartment::model()->findAll($deptCri);
 <form id="Form1" method="post" enctype="multipart/form-data"
 	class="form-horizontal">
 
-	<div class="portlet box blue">
+	<div class="<?php echo ConfigUtil::getPortletTheme(); ?>">
 		<div class="portlet-title">
 			<div class="caption">
 				<?php echo  MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>
@@ -29,7 +29,7 @@ $departments = MDepartment::model()->findAll($deptCri);
 							<h4 class="panel-title">
 								<a class="accordion-toggle" data-toggle="collapse"
 									data-parent="#accordion1" href="#collapse_1"> <i
-									class="fa fa-user"></i> รายละเอียดผู้จดแจ้ง
+									class="fa fa-info"></i> รายละเอียดผู้จดแจ้ง
 								</a>
 							</h4>
 						</div>
@@ -150,7 +150,7 @@ $departments = MDepartment::model()->findAll($deptCri);
 							<h4 class="panel-title">
 								<a class="accordion-toggle" data-toggle="collapse"
 									data-parent="#accordion2" href="#collapse_2"> <i
-									class="fa fa-user"></i> รายละเอียดรายการที่จดแจ้ง
+									class="fa fa-list-alt"></i> รายละเอียดรายการที่จดแจ้ง
 								</a>
 							</h4>
 						</div>
@@ -266,7 +266,7 @@ $departments = MDepartment::model()->findAll($deptCri);
 											<td><input id="import_to_other"
 												name="Pathogenimport_to_other]" type="text"
 												value="<?php echo $data->import_to_other;?>"></td>
-										
+
 										</tr>
 									</tbody>
 
@@ -298,7 +298,8 @@ $departments = MDepartment::model()->findAll($deptCri);
 										<label class="control-label col-md-4">ผู้จดแจ้ง:<span
 											class="required">*</span></label>
 										<div class="col-md-4">
-											<input id="inform_name" type="text" value="<?php echo $data->inform_name;?>"
+											<input id="inform_name" type="text"
+												value="<?php echo $data->inform_name;?>"
 												class="form-control" name="Pathogen[inform_name]"> <span
 												class="help-block" id="req-inform_name"><?php echo Pathogen::$req1;?></span>
 										</div>
@@ -311,7 +312,8 @@ $departments = MDepartment::model()->findAll($deptCri);
 										<label class="control-label col-md-4">วันที่แจ้ง:<span
 											class="required">*</span></label>
 										<div class="col-md-4">
-											<input type="text" readonly="readonly" value="<?php echo CommonUtil::getDateThai($data->inform_date);?>"
+											<input type="text" readonly="readonly"
+												value="<?php echo CommonUtil::getDateThai($data->inform_date);?>"
 												id="inform_date" name="Pathogen[inform_date]"
 												class="form-control" style="width: 150px !important;" /> <span
 												class="help-block" id="req-inform_date"><?php echo Pathogen::$req1;?></span>

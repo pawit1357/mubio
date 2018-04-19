@@ -9,7 +9,7 @@
 	<!-- 		Your form validation is successful! -->
 	<!-- 	</div> -->
 
-	<div class="portlet box blue">
+	<div class="<?php echo ConfigUtil::getPortletTheme(); ?>">
 		<div class="portlet-title">
 			<div class="caption">
 				<?php echo  MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>

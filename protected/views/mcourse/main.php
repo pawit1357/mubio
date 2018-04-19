@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<!-- BEGIN EXAMPLE TABLE PORTLET-->
-			<div class="portlet box blue">
+	<div class="<?php echo ConfigUtil::getPortletTheme(); ?>">
 				<div class="portlet-title">
 					<div class="caption">
 						<?php echo  MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>

@@ -3,7 +3,7 @@
 <form id="Form1" method="post" enctype="multipart/form-data"
 	class="form-horizontal">
 
-			<div class="portlet box blue">
+	<div class="<?php echo ConfigUtil::getPortletTheme(); ?>">
 		<div class="portlet-title">
 			<div class="caption">
 				<?php echo  MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>
@@ -190,7 +190,9 @@
 				</table>
 
 				<!-- END FORM-->
-				<div class="form-actions">
+
+			</div>
+							<div class="form-actions">
 					<div class="row">
 						<div class="col-md-9">
 							<div class="row">
@@ -203,7 +205,6 @@
 						<div class="col-md-9"></div>
 					</div>
 				</div>
-			</div>
 		</div>
 	</div>
 

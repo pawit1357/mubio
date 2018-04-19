@@ -1,14 +1,13 @@
 <?php
 $criteria = new CDbCriteria();
-$criteria ="id <> 1";
-$departments = MDepartment::model ()->findAll ( $criteria );
+$criteria = "id <> 1";
+$departments = MDepartment::model()->findAll($criteria);
 ?>
 <form id="Form1" method="post" enctype="multipart/form-data"
 	class="form-horizontal">
-	<div class="portlet light">
+	<div class="<?php echo ConfigUtil::getPortletTheme(); ?>">
 		<div class="portlet-title">
 			<div class="caption">
-				
 					<?php echo MenuUtil::getMenuName($_SERVER['REQUEST_URI'])?>
 				<span class="caption-helper">(ระบุเงื่อนไขสำหรับการค้นหา)</span>
 			</div>
@@ -16,6 +15,7 @@ $departments = MDepartment::model ()->findAll ( $criteria );
 		</div>
 		<div class="portlet-body form">
 			<div class="form-body">
+
 				<!-- BEGIN FORM-->
 				<div class="row">
 					<div class="col-md-9">
@@ -29,14 +29,19 @@ $departments = MDepartment::model ()->findAll ( $criteria );
                         			<?php foreach($departments as $item) {?>
                         			<option value="<?php echo $item->id?>"><?php echo $item->name.'('.$item->code.')';?></option>
                         			<?php }?>
-								</select>
-								<span class="help-block" id="req-department_id"><?php echo Pathogen::$req1;?></span>
+								</select> <span class="help-block" id="req-department_id"><?php echo Pathogen::$req1;?></span>
 							</div>
 							<div></div>
 						</div>
 					</div>
 				</div>
+			<?php if(strcmp($_SESSION['ReportNotFound'],"1")==0){?>
+			<div class="alert alert-danger">
+				<strong>ไม่พบข้อมูลรายงาน!</strong> ไม่พบข้อมูลตามเงื่อนไขที่กำหนด.
 			</div>
+			<?php }?>
+			</div>
+
 			<!-- END FORM-->
 			<div class="form-actions">
 				<div class="row">
@@ -45,25 +50,17 @@ $departments = MDepartment::model ()->findAll ( $criteria );
 							<div class="col-md-offset-3 col-md-9">
 								<input type='submit' name='submitBtn' id='submitBtn'
 									class='btn green uppercase' value="ค้นหา" />
-								<button type="reset" class="enableOnInput btn default uppercase">ยกเลิก</button>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-9"></div>
 				</div>
 			</div>
+
+
 		</div>
 	</div>
 
-	<div class="portlet light">
-		<div class="portlet-body form">
-			<div class="form-body">
-				<!-- BEGIN FORM-->
-				<br> <br> <br>
-
-			</div>
-		</div>
-	</div>
 	<script
 		src="<?php echo ConfigUtil::getAppName();?>/assets/global/plugins/jquery.min.js"
 		type="text/javascript"></script>
