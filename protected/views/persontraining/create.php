@@ -133,7 +133,7 @@ $courses = MCourse::model()->findAll();
 												<option value="0">-- โปรดเลือก --</option>
                                     			<?php foreach($courses as $item) {?>
                                     			<option
-													value="<?php echo $item->id?>"><?php echo  $item->name?></option>
+													value="<?php echo $item->id?>"><?php echo  $item->description?></option>
                                     			<?php }?>
         									</select> <span class="help-block" id="req-course_id"><?php echo Pathogen::$req1;?></span>
 									</div>

@@ -141,7 +141,7 @@ class MenuUtil {
 		$childs = $Menus = UserLoginUtils::getMenuInRole (); // Menu::model ()->findAll ( $criMenu );
 		if (isset ( $childs )) {
 			
-			if ($currentPage == "Report") {
+		    if (strtolower($currentPage) == strtolower("Report")) {
 				$nav = $nav . "<li>";
 				$nav = $nav . "<i class=\"fa fa-angle-right\"></i>";
 				$nav = $nav . "<a href=\"#\">รายงาน</a>";
