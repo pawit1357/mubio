@@ -41,7 +41,7 @@
 				class="forget-password">Forgot Password?</a>
 		</div>
 		<div class="create-account">
-			<p>
+			<p><a href="<?php echo ConfigUtil::getSiteName().'/document/Manual.pdf'?>" target="_blank">คู่มือการใช้งานระบบ (Manual)</a>
 			</p>
 		</div>
 	</form>

@@ -53,10 +53,11 @@ class CommonUtil
         $seconds = $difference;
         return $days;
     }
- // end function dateDiff
+
+    // end function dateDiff
     public static function getDateThai($date)
     {
-        list ($val1,$val2) = explode(" ", $date);
+        list ($val1, $val2) = explode(" ", $date);
         list ($year, $month, $day) = explode("-", $val1);
         if ($year == '0000' && $day == '00' && $month == '00') {
             return '';
@@ -65,17 +66,19 @@ class CommonUtil
             return $day . '/' . $month . '/' . (((int) $year) + 543);
         }
     }
+
     public static function getDateThaiAndTime($date)
     {
-        list ($val1,$val2) = explode(" ", $date);
+        list ($val1, $val2) = explode(" ", $date);
         list ($year, $month, $day) = explode("-", $val1);
         if ($year == '0000' && $day == '00' && $month == '00') {
             return '';
         } else {
             
-            return $day . '/' . $month . '/' . (((int) $year) + 543).' '.$val2;
+            return $day . '/' . $month . '/' . (((int) $year) + 543) . ' ' . $val2;
         }
     }
+
     public static function getDateThaiMoreOne($date)
     {
         $dateList = explode(",", $date);
@@ -92,6 +95,13 @@ class CommonUtil
         list ($day, $month, $year) = explode("/", $date);
         
         return (((int) $year) - 543) . '-' . $month . '-' . $day;
+    }
+
+    public static function getCurDate()
+    {
+        list ($day, $month, $year) = explode("/", date("d/m/Y"));
+        
+        return $day . '/' . $month . '/' . (((int) $year) + 543);
     }
 
     public static function concatDate($d, $m, $y)
@@ -145,66 +155,6 @@ class CommonUtil
         return rtrim($result, ",");
     }
 
-    public static function getRadMachineName($ids)
-    {
-        $result = '';
-        $items = explode(",", $ids);
-        
-        if (isset($items)) {
-            foreach ($items as $id) {
-                if ($id == "1") {
-                    $result .= 'เครื่องกำเนิดรังสี,';
-                }
-                if ($id == "2") {
-                    $result .= 'วัสดุกัมมันตรังสี,';
-                }
-            }
-        }
-        return rtrim($result, ",");
-    }
-
-    public static function getApproveStatus($status)
-    {
-        $result = '';
-        switch ($status) {
-            case UserLoginUtils::INIT_APPROVE:
-                $result = 'waiting user save.';
-                break;
-            case UserLoginUtils::USER_APPROVE:
-                $result = 'waiting staff approve.';
-                break;
-            case UserLoginUtils::STAFF_APPROVE:
-                $result = 'waiting executive approve.';
-                break;
-            case UserLoginUtils::EXECUTIVE_APPROVE:
-                $result = 'executive approved.';
-                break;
-            default:
-                $result = 'waiting user save.';
-                break;
-        }
-        
-        return $result;
-    }
-
-    public static function getSealTypeName($ids)
-    {
-        $result = '';
-        $items = explode(",", $ids);
-        
-        if (isset($items)) {
-            foreach ($items as $id) {
-                if ($id == "1") {
-                    $result .= 'ปิดผนึก,';
-                }
-                if ($id == "2") {
-                    $result .= 'ไม่ปิดผนึก,';
-                }
-            }
-        }
-        return rtrim($result, ",");
-    }
-
     public static function getMonthById($id)
     {
         $ThMonth = array(
@@ -223,15 +173,5 @@ class CommonUtil
         );
         return $ThMonth[$id];
     }
-
-    /* #MASTER# */
-    /* #MASTER# */
-    const CHECKBOX_TYPE = "1";
-
-    const TEXT_TYPE = "2";
-
-    const TABLE_TYPE = "3";
-
-    const FILE_TYPE = "4";
 }
 ?>

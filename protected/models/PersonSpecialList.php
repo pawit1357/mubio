@@ -2,6 +2,8 @@
 
 class PersonSpecialList extends CActiveRecord
 {
+    public $start_date;
+    public $end_date;
     
     public static function model($className = __CLASS__)
     {
