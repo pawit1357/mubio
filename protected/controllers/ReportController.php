@@ -802,7 +802,7 @@ class ReportController extends CController
                     $pdf->Output($tmp_pdf_file, 'D');
                 } else {
                     $_SESSION['ReportNotFound'] = 1;
-                    $this->render('//report/report05');
+                    $this->render('//report/report06');
                 }
             }
         } else {
@@ -917,7 +917,7 @@ class ReportController extends CController
                     $pdf->Output($tmp_pdf_file, 'D');
                 } else {
                     $_SESSION['ReportNotFound'] = 1;
-                    $this->render('//report/report05');
+                    $this->render('//report/report07');
                 }
             }
         } else {
@@ -1032,7 +1032,7 @@ class ReportController extends CController
                     $pdf->Output($tmp_pdf_file, 'D');
                 } else {
                     $_SESSION['ReportNotFound'] = 1;
-                    $this->render('//report/report06');
+                    $this->render('//report/report08');
                 }
             }
         } else {
@@ -1044,6 +1044,126 @@ class ReportController extends CController
             // 'dataProvider' => $dataProvider
             // ));
             $this->render('//report/report08');
+        }
+    }
+
+    public function actionReport09()
+    {
+        // Authen Login
+        if (! UserLoginUtils::isLogin()) {
+            $this->redirect(Yii::app()->createUrl('Site/login'));
+        }
+        
+        if (isset($_POST['Rpt'])) {
+            
+            $_SESSION['ReportNotFound'] = 0;
+            $startDate = CommonUtil::getDate(array_values($_POST['Rpt'])[0]);
+            $endDate = CommonUtil::getDate(array_values($_POST['Rpt'])[1]);
+            $criteria = new CDbCriteria();
+            $criteria->addCondition("t.create_date between '" . $startDate . "' AND '" . $endDate . "'");
+            
+            $datas = Waste::model()->findAll($criteria);
+            if (isset($datas)) {
+                
+                $str = '<br>';
+                $str .= '<table style="text-align:left;font-family:arial;font-size:12px; width: 100%">';
+                $str .= '<tr>' . '<td style="text-align: center" colspan="4">ข้อมูลปริมาณของเสียอันตรายทางชีวภาพ/ขยะติดเชื้อ เพื่อแจ้งส่งจำกัด</td>' . '</tr>';
+                $str .= '</table>';
+                $str .= '<br><br>';
+                
+                // TABLE
+                $str .= '<table style="text-align:left;font-family:arial;font-size:10px;" border="1" cellpadding="1" cellspacing="1" id="cssTable">
+            <thead>
+                <tr>
+					<th style="text-align: center;width: 5%">ลำดับ</th>
+					<th style="text-align: center;width: 20%">รหัส</th>
+					<th style="text-align: center;width: 20%">ประเภทของเสีย</th>
+					<th style="text-align: center;width: 25%">ประเภทภาชนะ</th>
+                    <th style="text-align: center;width: 10%">ปริมาตร/น้ำหนัก</th>
+                    <th style="text-align: center;width: 20%">สถานที่เก็บ</th>
+                </tr>
+            </thead>
+            <tbody>';
+                // BODY
+                $order = 1;
+                foreach ($datas as $item) {
+                    $str .= '<tr>';
+                    $str .= '<td style="text-align: center;width: 5%">' . $order . '</td>';
+                    $str .= '<td style="text-align: center;width: 20%">' . $item->waste_code . '</td>';
+                    $str .= '<td style="text-align: center;width: 20%">' . $item->waste_type . '</td>';
+                    $str .= '<td style="text-align: center;width: 25%">' . $item->container_type . '</td>';
+                    $str .= '<td style="text-align: center;width: 10%">' . $item->waste_volume . '</td>';
+                    $str .= '<td style="text-align: center;width: 20%">' . $item->waste_room . '</td>';
+                    
+                    $str .= '</tr>';
+                    $order ++;
+                }
+                // END TABLE
+                $str .= '</tbody></table>';
+                
+                // create new PDF document
+                $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+                // set document information
+                $pdf->SetCreator(PDF_CREATOR);
+                $pdf->SetAuthor('');
+                $pdf->SetTitle('');
+                $pdf->SetSubject('');
+                $pdf->SetKeywords('');
+                
+                // set default header data
+                // $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 011', PDF_HEADER_STRING);
+                
+                // set header and footer fonts
+                $pdf->setHeaderFont(Array(
+                    PDF_FONT_NAME_MAIN,
+                    '',
+                    PDF_FONT_SIZE_MAIN
+                ));
+                $pdf->setFooterFont(Array(
+                    PDF_FONT_NAME_DATA,
+                    '',
+                    PDF_FONT_SIZE_DATA
+                ));
+                
+                // set default monospaced font
+                $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+                
+                // set margins
+                $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+                $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+                $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+                // Set font
+                $pdf->SetFont('thsarabun', '', 14);
+                $pdf->AddPage();
+                // Print text using writeHTMLCell()
+                $pdf->writeHTMLCell(0, 0, '', '', $str, 0, 1, 0, true, '', true);
+                
+                // Close and output PDF document
+                $dir = dirname(__FILE__) . '../../../uploads';
+                
+                $tmp_pdf_file = $dir . '/rpt_' . date("Y-m-d") . '_' . str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT) . '.pdf';
+                if (! file_exists($dir)) {
+                    // mkdir($dir, 0777, true);
+                }
+                // Not found data.
+                if (count($datas) > 0) {
+                    $_SESSION['ReportNotFound'] = 0;
+                    ob_end_clean();
+                    $pdf->Output($tmp_pdf_file, 'D');
+                } else {
+                    $_SESSION['ReportNotFound'] = 1;
+                    $this->render('//report/report09');
+                }
+            }
+        } else {
+            // $dataProvider = new CActiveDataProvider("Pathogen", array(
+            // 'criteria' => $criteria
+            // ));
+            
+            // $this->render('//report/report01', array(
+            // 'dataProvider' => $dataProvider
+            // ));
+            $this->render('//report/report09');
         }
     }
 }
