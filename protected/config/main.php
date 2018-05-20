@@ -2,9 +2,8 @@
 return array (
 		'name' => 'mubio',
 		'defaultController' => 'site',
-        'language' => 'th', // th ภาษาไทย
-        // เพิ่มเติม
-        'timeZone' => 'Asia/Bangkok', // ทวีป Asia/Bangkok (+7.00)
+        'language' => 'th', 
+        'timeZone' => 'Asia/Bangkok',
 		'import' => array (
 				'application.models.*',
 				'application.components.*' 
@@ -15,7 +14,7 @@ return array (
 				),
 				'db' => array (
 						'class' => 'CDbConnection',
-						'connectionString' => 'mysql:host=localhost;dbname=mubiodb',
+						'connectionString' => 'mysql:host=localhost;dbname=mubio',
 						'emulatePrepare' => true,
 						'username' => 'root',
 						'password' => 'P@ssw0rd',
