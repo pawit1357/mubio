@@ -1,4 +1,5 @@
-<input type="hidden" id="url" value="<?php echo ConfigUtil::getSiteName();?>">
+<input type="hidden" id="url"
+	value="<?php echo ConfigUtil::getSiteName();?>">
 
 <form id="Form1" method="post" enctype="multipart/form-data"
 	class="form-horizontal">
@@ -19,27 +20,51 @@
 					<div class="col-md-4">
 						<div class="form-group" id="divReq-start_date">
 							<label class="control-label col-md-3">วันที่เริ่ม:</label>
-							<div class="col-md-6">
-								<input type="text" value="<?php echo CommonUtil::getCurDate();?>" id="start_date"
-									name="Rpt[start_date]" />
-									<span class="help-block" id="req-start_date"><?php echo Pathogen::$req1;?></span>
+							<div class="input-group date date-picker"
+								data-date-format="dd-mm-yyyy">
+								<input type="text"
+									value="<?php echo CommonUtil::getCurDate();?>" id="start_date"
+									class="form-control" name="Rpt[start_date]" /> <span
+									class="input-group-btn">
+									<button class="btn default" type="button">
+										<i class="fa fa-calendar"></i>
+									</button>
+								</span>
 							</div>
+
+
+							<span class="help-block" id="req-start_date"><?php echo Pathogen::$req1;?></span>
 						</div>
 					</div>
 					<!--/span-->
 					<div class="col-md-4">
-						<div class="form-group" id="divReq-start_date">						
-							<label class="control-label col-md-3">วันที่สิ้นสุด:</label> <input
-								type="text" value="<?php echo CommonUtil::getCurDate();?>" id="end_date" name="Rpt[end_date]" />
-								<span class="help-block" id="req-end_date"><?php echo Pathogen::$req1;?></span>
+						<div class="form-group" id="divReq-start_date">
+							<label class="control-label col-md-3">วันที่สิ้นสุด:</label>
+							<div class="input-group date date-picker"
+								data-date-format="dd-mm-yyyy">
+								<input type="text"
+									value="<?php echo CommonUtil::getCurDate();?>" id="end_date"
+									class="form-control" name="Rpt[end_date]" /> <span
+									class="input-group-btn">
+									<button class="btn default" type="button">
+										<i class="fa fa-calendar"></i>
+									</button>
+								</span>
+							</div>
+
+							<span class="help-block" id="req-end_date"><?php echo Pathogen::$req1;?>
+								
+								
+								</span>
 						</div>
 					</div>
 					<!--/span-->
 				</div>
+				<?php echo '';//"::".$_SESSION['ReportNotFound']; ?>
 			<?php if(strcmp($_SESSION['ReportNotFound'],"1")==0){?>
 			<div class="alert alert-danger">
-				<strong>ไม่พบข้อมูลรายงาน!</strong> ไม่พบข้อมูลตามเงื่อนไขที่กำหนด.
-			</div>
+					<strong>ไม่พบข้อมูลรายงาน!</strong> ไม่พบข้อมูลตามเงื่อนไขที่กำหนด.
+				</div>
 			<?php }?>
 			
 			</div>
@@ -65,7 +90,7 @@
 		src="<?php echo ConfigUtil::getAppName();?>/assets/global/plugins/jquery.min.js"
 		type="text/javascript"></script>
 
-	
+
 
 
 
